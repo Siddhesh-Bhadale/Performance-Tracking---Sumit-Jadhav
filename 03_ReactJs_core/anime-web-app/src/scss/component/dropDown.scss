@@ -1,0 +1,27 @@
+.dropDown {
+  color: white;
+}
+.select-container {
+  min-height: 2em;
+  max-width: 10em;
+  background-color: transparent;
+  color: #ed1c5b;
+  border: 1px solid #ed1c5b;
+  outline: #ed1c5b;
+  padding: 0.4em;
+  position: relative;
+  border-radius: 5px;
+  line-height: 100%;
+  font-weight: 800;
+  font-size: 1rem;
+}
+.options {
+  position: absolute;
+  background-color: transparent;
+  position: absolute;
+  z-index: 1;
+  top: -30px;
+  line-height: 100%;
+  font-weight: bold;
+  font-size: medium;
+}

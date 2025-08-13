@@ -1,0 +1,33 @@
+.anime-card-container {
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-bottom: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+  //   border: 1px solid red;
+}
+.divider {
+  display: flex;
+  padding-left: 4em;
+  padding-right: 2em;
+  padding-bottom: 2em;
+  //   border: 1px solid red;
+}
+.divider-title {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 100%;
+  color: #ed1c5b;
+  font-family: fantasy;
+  text-align: left;
+  //   border: 1px solid white;
+}
+.Filter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+  max-width: 30em;
+}

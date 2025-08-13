@@ -1,0 +1,26 @@
+@mixin flex-center($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+}
+
+// @mixin font-rem($px) {
+//     font-size: ($px / 16) * 1rem;
+// }
+
+// @mixin to-em($property, $px, $base: 16) {
+//     #{$property}: ($px / $base) * 1em;
+// }
+
+@mixin respond($device) {
+  @if $device == "tablet" {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $device == "mobile" {
+    @media (max-width: 480px) {
+      @content;
+    }
+  }
+}
