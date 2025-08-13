@@ -5,3 +5,10 @@ $dark: #1a1a1a;
 $white: #fff;
 $sectionTxt: #514f62;
 $nameTxt: #303030;
+
+$primarygradient: linear-gradient(
+  90deg,
+  rgba(237, 28, 91, 0.6) 0%,
+  rgba(199, 88, 121, 0.23) 50%,
+  rgba(237, 28, 91, 0.65) 100%
+);

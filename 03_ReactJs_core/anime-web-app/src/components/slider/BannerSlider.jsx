@@ -4,7 +4,7 @@ import "../../scss/component/banner.scss";
 const BannerSlider = () => {
   let object = {};
   return (
-    <div className="Banner-container">
+    <div data-component="BannerComponent" className="Banner-container">
       <div className="Banner-card">
         <div className="anime-title">
           <label className="title-heading">DANMACHI</label>

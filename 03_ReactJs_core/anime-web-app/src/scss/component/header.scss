@@ -1,100 +1,102 @@
-.main-container {
-  display: flex;
-  align-items: center;
-  // background-color: black;
-  justify-content: space-evenly;
-  gap: 1em;
-  padding-left: 2em;
-  padding-right: 2em;
-  padding-top: 2em;
-  padding-bottom: 2em;
-}
-.logo-container {
-  // padding: 1rem;
-  max-width: 15em;
-}
-.logo-title {
-  font-size: 2rem;
-  font-weight: 800;
-  line-height: 100%;
-  color: #ed1c5b;
-  font-family: fantasy;
-}
-.nav-bar {
-  display: flex;
-  flex-wrap: nowrap;
-  max-width: 25rem;
-}
-.title {
-  margin-left: 0.7em;
-  color: white;
-}
-.title:focus,
-.title:hover {
-  color: #ed1c5b;
-}
-.search-container {
-  background-color: rgba(149, 149, 149, 0.257);
-  display: flex;
-  padding: 0px, 5px;
-  border-radius: 8px;
-  overflow: hidden;
-  max-width: 25rem;
-  align-items: center;
-  justify-content: center;
-  padding-left: 1rem;
-  gap: 1em;
-}
-.search-icon {
-  height: 24px;
-  width: 24px;
-}
-.search-input {
-  padding: 0.3rem;
-  outline: #ed1c5b00;
-  fill: none;
-  border: none;
-  background: transparent;
-  font-size: 1.2rem;
-  text-align: left;
-  color: white;
-}
-.search-input::placeholder {
-  color: rgba(132, 129, 129, 0.524);
-}
-.search-input:focus,
-.search-input:active {
-  background: transparent;
-}
-.auth-contianer {
-  max-width: 8em;
-  display: flex;
-}
-.sign-Label {
-  color: rgb(123, 123, 123);
-  font-weight: 400;
-  line-height: 100%;
-  font-size: 18px;
-}
-.signIn:hover {
-  color: white;
-  text-decoration: underline;
-}
-.signUP:hover {
-  color: white;
-  text-decoration: underline;
-}
-
-@media only screen and (max-width: 600px) {
+[data-component="Header"] {
+  &.main-container {
+    display: flex;
+    align-items: center;
+    // background-color: black;
+    justify-content: space-evenly;
+    gap: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+  }
+  .logo-container {
+    // padding: 1rem;
+    max-width: 15em;
+  }
+  .logo-title {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 100%;
+    color: #ed1c5b;
+    font-family: fantasy;
+  }
+  .nav-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    max-width: 25rem;
+  }
+  .title {
+    margin-left: 0.7em;
+    color: white;
+  }
+  .title:focus,
+  .title:hover {
+    color: #ed1c5b;
+  }
   .search-container {
-    display: none;
+    background-color: rgba(149, 149, 149, 0.257);
+    display: flex;
+    padding: 0px, 5px;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 25rem;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1rem;
+    gap: 1em;
+  }
+  .search-icon {
+    height: 24px;
+    width: 24px;
+  }
+  .search-input {
+    padding: 0.3rem;
+    outline: #ed1c5b00;
+    fill: none;
+    border: none;
+    background: transparent;
+    font-size: 1.2rem;
+    text-align: left;
+    color: white;
+  }
+  .search-input::placeholder {
+    color: rgba(132, 129, 129, 0.524);
+  }
+  .search-input:focus,
+  .search-input:active {
+    background: transparent;
   }
   .auth-contianer {
-    display: none;
+    max-width: 8em;
+    display: flex;
   }
-}
-@media only screen and (max-width: 768px) {
-  .search-container {
-    display: none;
+  .sign-Label {
+    color: rgb(123, 123, 123);
+    font-weight: 400;
+    line-height: 100%;
+    font-size: 18px;
+  }
+  .signIn:hover {
+    color: white;
+    text-decoration: underline;
+  }
+  .signUP:hover {
+    color: white;
+    text-decoration: underline;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .search-container {
+      display: none;
+    }
+    .auth-contianer {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    .search-container {
+      display: none;
+    }
   }
 }

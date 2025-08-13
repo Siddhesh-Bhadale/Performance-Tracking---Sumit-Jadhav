@@ -4,7 +4,7 @@ import search from "../../assets/icons/search.svg";
 
 const Header = () => {
   return (
-    <header className="main-container">
+    <header data-component="Header" className="main-container">
       <div className="logo-container">
         <label className="logo-title">FLavour Anime</label>
       </div>

@@ -5,9 +5,11 @@ import BannerSlider from "../components/slider/BannerSlider";
 import "../scss/page/homePage.scss";
 import DropDown from "../components/dropDown/DropDown";
 import { ImageSlides } from "../utils/TextConstants";
+import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   const [data, setData] = useState([]);
   const [imageSlider, setImageSlider] = useState([]);
+  const navigate = useNavigate();
   const arr = ["TV", "Movie", "ONA", "OVA"];
   const arr2 = ["Genre", "Movie", "ONA", "OVA"];
   const arr3 = ["Year", "Movie", "ONA", "OVA"];
@@ -24,8 +26,12 @@ const HomePage = () => {
     }
   };
 
+  const handleNavigation = (item) => {
+    navigate(`/anime-details/${item.mal_id}`, { state: item });
+  };
+
   return (
-    <div>
+    <div data-component="HomePage">
       <Header />
       <BannerSlider slides={ImageSlides} />
       <div className="divider">
@@ -44,6 +50,11 @@ const HomePage = () => {
               key={index}
               animeImg={item.images.webp.image_url}
               description={item.title}
+              rating={item.score / 2}
+              onClick={() => {
+                handleNavigation(item);
+                // console.log("clicked card id:", item.mal_id, item);
+              }}
             />
           );
         })}

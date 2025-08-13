@@ -1,45 +1,47 @@
-.Banner-container {
-  padding: 2em;
-}
-.Banner-card {
-  border: 1px solid black;
-  height: 40em;
-  position: relative;
-  // background-color: yellow;
-  background-image: url("https://img.youtube.com/vi/ZEkwCGJ3o7M/maxresdefault.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.anime-title {
-  color: black;
-  display: flex;
-  flex-direction: column;
-  max-width: 35rem;
-  //   border: 1px solid black;
-  position: absolute;
-  overflow: hidden;
-  top: 50%;
-  transform: translate(-50%);
-  left: 30%;
-  transform: translate(-50%);
-}
-.title-heading {
-  font-weight: 900;
-  font-size: 4rem;
-}
-.anime-subTitle {
-  font-weight: 900;
-  font-size: 2rem;
-}
-.watch-Btn {
-  max-width: 10em;
-  max-height: 5em;
-  background-color: rgb(241, 53, 53);
-  position: absolute;
-  overflow: hidden;
-  top: 50%;
-  transform: translate(-50%);
-  right: 10%;
-  transform: translate(-50%);
-  color: white;
+[data-component="BannerComponent"] {
+  &.Banner-container {
+    padding: 2em;
+  }
+  .Banner-card {
+    border: 1px solid black;
+    height: 40em;
+    position: relative;
+    // background-color: yellow;
+    background-image: url("https://img.youtube.com/vi/ZEkwCGJ3o7M/maxresdefault.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .anime-title {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    max-width: 35rem;
+    //   border: 1px solid black;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    transform: translate(-50%);
+    left: 30%;
+    transform: translate(-50%);
+  }
+  .title-heading {
+    font-weight: 900;
+    font-size: 4rem;
+  }
+  .anime-subTitle {
+    font-weight: 900;
+    font-size: 2rem;
+  }
+  .watch-Btn {
+    max-width: 10em;
+    max-height: 5em;
+    background-color: rgb(241, 53, 53);
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    transform: translate(-50%);
+    right: 10%;
+    transform: translate(-50%);
+    color: white;
+  }
 }

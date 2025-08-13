@@ -1,38 +1,61 @@
 import React from "react";
 import "../../scss/component/animeCard.scss";
-import animeImg from "../../assets/images/dummyAnime.jpg";
-const AnimeCard = ({ animeImg, description }) => {
+import square from "../../assets/icons/corners-out-bold-svgrepo-com.svg";
+const AnimeCard = ({ animeImg, description, onClick, rating }) => {
   const totalStars = ["☆", "☆", "☆", "☆", "☆"];
   const filledStars = 0;
-  const getStar = (rating) => {
-    //Its going to hold the response
-    const starArray = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStars = rating % 10 >= 0.5; // --- it will always give result in 0.0 to 0.9
+  const getStars = (rating) => {
+    const starsArray = [];
 
-    // for filling th full stars inside the Array
+    const fullStars = Math.floor(rating); // full stars count
+    const hasHalfStar = rating % 1 >= 0.5; // check if half star needed
+
+    // Add full stars
     Array(fullStars)
       .fill(0)
-      .forEach((item, index) =>
-        starArray.push({ type: "full", id: "full-stars" })
-      );
-    // for filling the half stars in the array
-    if (hasHalfStars) {
-      starArray.push({ type: "half", id: "half-stars" });
+      .forEach((_, i) => starsArray.push({ type: "full", id: `full-${i}` }));
+
+    // Add half star if needed
+    if (hasHalfStar) {
+      starsArray.push({ type: "half", id: "half-star" });
     }
+
+    // Add empty stars for the remaining
+    const emptyStars = 5 - starsArray.length;
+    Array(emptyStars)
+      .fill(0)
+      .forEach((_, i) => starsArray.push({ type: "empty", id: `empty-${i}` }));
+
+    return starsArray;
   };
+  // console.log("getStars ", getStar());
   return (
-    <div className="card-Container">
+    <div
+      data-component="AnimeCard"
+      className="card-Container"
+      onClick={onClick}
+    >
       <div className="Image-container">
         <img src={animeImg} className="anime-poster" alt="animePoster" />
+        <div className="overlay">
+          <img src={square} alt="squareImg" className="squareImg" />
+          <span>Watch this</span>
+        </div>
       </div>
       <p className="animeDescription">{description}</p>
       <div className="rating-contianer">
-        {totalStars.map((item, index) => {
+        {/* {getStar(rating).map((item, index) => {
           return (
             <div className="Stars" key={index}>
               {item}
             </div>
+          );
+        })} */}
+        {getStars(rating).map((star) => {
+          return (
+            <span key={star.id} className={`star ${star.type}`}>
+              ★
+            </span>
           );
         })}
       </div>

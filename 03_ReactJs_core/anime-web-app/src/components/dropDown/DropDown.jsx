@@ -4,7 +4,7 @@ import "../../scss/component/dropDown.scss";
 const DropDown = ({ arr = [] }) => {
   const [selected, setSelected] = useState(arr[0]);
   return (
-    <div className="dropDown">
+    <div data-component="DropDownComponent" className="dropDown">
       <select
         name="select"
         value={selected}
