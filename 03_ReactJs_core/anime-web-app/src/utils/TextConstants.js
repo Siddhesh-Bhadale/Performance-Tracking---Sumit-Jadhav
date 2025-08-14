@@ -1,27 +1,27 @@
 export const ImageSlides = [
   {
-    Banner_url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
-    title: "Ocean Adventures",
-    subTitle: "Explore the deep blue seas",
+    Banner_url: "https://cdn.myanimelist.net/images/anime/1208/94745l.webp",
+    title: "Fullmetal Alchemist: Brotherhood",
+    subTitle: "ullmetal Alchemist: Brotherhood",
   },
   {
-    Banner_url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-    title: "Mountain Escape",
-    subTitle: "Find peace in the wild",
+    Banner_url: "https://cdn.myanimelist.net/images/anime/1015/138006l.webp",
+    title: "Sousou no Frieren",
+    subTitle: "Frieren The Slayer",
   },
   {
-    Banner_url: "https://images.unsplash.com/photo-1470770903676-69b98201ea1c",
-    title: "City Lights",
-    subTitle: "Feel the heartbeat of the night",
+    Banner_url: "https://img.youtube.com/vi/hKHepjfj5Tw/maxresdefault.jpg",
+    title: "Shingeki no Kyojin Season 3 Part 2",
+    subTitle: "Attack on Titan Season 3 Part 2",
   },
   {
-    Banner_url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
-    title: "Desert Dreams",
-    subTitle: "Discover the golden sands",
+    Banner_url: "https://cdn.myanimelist.net/images/anime/3/72078l.webp",
+    title: "Gintama",
+    subTitle: "Gintama Season 4",
   },
   {
-    Banner_url: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-    title: "Forest Trails",
-    subTitle: "Breathe in the green serenity",
+    Banner_url: "https://cdn.myanimelist.net/images/anime/1245/116760l.webp",
+    title: "Gintama: The Final",
+    subTitle: "Gintama: The Very Final",
   },
 ];

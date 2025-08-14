@@ -132,11 +132,13 @@
         background-repeat: no-repeat;
         background-size: cover;
       }
-      .right-container {
-        display: flex;
-        max-width: 30%;
-        border: 1px solid;
-        padding: 1em;
+      .right-container {  
+    padding: 1em;
+    border: 1px solid white;
+    max-height: 700px;
+    overflow: hidden;
+    overflow-y: visible;
+
       }
     }
   }

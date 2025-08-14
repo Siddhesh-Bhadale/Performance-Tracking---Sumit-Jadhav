@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/header/Header";
 import AnimeCard from "../components/cardTemplate/AnimeCard";
 import BannerSlider from "../components/slider/BannerSlider";
@@ -8,19 +8,18 @@ import { ImageSlides } from "../utils/TextConstants";
 import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   const [data, setData] = useState([]);
-  const [imageSlider, setImageSlider] = useState([]);
+  const [page,setPage]=useState(1);
   const navigate = useNavigate();
+  const loadingRef=useRef(null)
   const arr = ["TV", "Movie", "ONA", "OVA"];
   const arr2 = ["Genre", "Movie", "ONA", "OVA"];
   const arr3 = ["Year", "Movie", "ONA", "OVA"];
-  useEffect(() => {
-    fetchAnimeCardData();
-  }, []);
+  
   const fetchAnimeCardData = async () => {
     try {
-      const res = await fetch("https://api.jikan.moe/v4/top/anime");
-      const data = await res.json();
-      setData(data?.data);
+      const res = await fetch(`https://api.jikan.moe/v4/top/anime?page=${page}`);
+      const result = await res.json();
+      setData((prev)=>[...prev,...result.data]);
     } catch (error) {
       console.error("Soemthing went wrong during API call", error);
     }
@@ -29,7 +28,26 @@ const HomePage = () => {
   const handleNavigation = (item) => {
     navigate(`/anime-details/${item.mal_id}`, { state: item });
   };
+  useEffect(() => {
+    fetchAnimeCardData();
+  }, [page]);
 
+  //------- intersection observer --------------//
+  // useEffect(()=>{
+  //   if(!loadingRef.current) return
+
+  //   const loadingObserver =new IntersectionObserver(([entery])=>{
+  //     // console.log(entries)
+
+  //   },{threshold:1})
+
+  //   loadingObserver.observe(loadingRef.current)
+
+  //   return ()=>{
+  //     if(!loadingRef.current )loadingObserver.unobserve(loadingRef.current)
+  //   }
+  // },[])
+console.log("all anime details",data)
   return (
     <div data-component="HomePage">
       <Header />
@@ -61,6 +79,9 @@ const HomePage = () => {
       </section>
 
       {/* Hello */}
+      <div ref={loadingRef} className="end-message">
+            🎌 lOADING... 🎌
+          </div>
     </div>
   );
 };
