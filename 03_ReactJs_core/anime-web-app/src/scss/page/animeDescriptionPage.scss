@@ -123,14 +123,20 @@
     gap: 1em;
     .video-container {
       gap: 2em;
+      display: flex;
+      padding: 1em;
+
       .left-contiainer {
-        width: 60%;
+        max-width: 60%;
         min-height: 600px;
         background-repeat: no-repeat;
         background-size: cover;
       }
       .right-container {
-        width: 30%;
+        display: flex;
+        max-width: 30%;
+        border: 1px solid;
+        padding: 1em;
       }
     }
   }

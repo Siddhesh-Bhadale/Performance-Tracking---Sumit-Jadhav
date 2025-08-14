@@ -3,6 +3,7 @@ import { useLocation, useParams } from "react-router-dom";
 import "../../scss/page/animeDescriptionPage.scss";
 import image from "../../assets/images/dummyAnime.jpg";
 import StreamingCard from "../../components/cardTemplate/StreamingCard";
+import VideoCard from "../../components/cardTemplate/VideoCard";
 
 const AnimeDescriptionPage = () => {
   const params = useParams();
@@ -129,8 +130,10 @@ const AnimeDescriptionPage = () => {
             {" "}
           </div>
           <div className="right-contianer">
-            
-             </div>
+            <VideoCard
+              image={itemData?.data?.trailer?.images?.maximum_image_url}
+            />
+          </div>
         </div>
       </section>
       <section className="streaming-container">
