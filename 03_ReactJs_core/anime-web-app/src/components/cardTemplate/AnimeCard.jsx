@@ -2,14 +2,10 @@ import React from "react";
 import "../../scss/component/animeCard.scss";
 import square from "../../assets/icons/corners-out-bold-svgrepo-com.svg";
 const AnimeCard = ({ animeImg, description, onClick, rating }) => {
-  const totalStars = ["☆", "☆", "☆", "☆", "☆"];
-  const filledStars = 0;
   const getStars = (rating) => {
     const starsArray = [];
-
     const fullStars = Math.floor(rating); // full stars count
     const hasHalfStar = rating % 1 >= 0.5; // check if half star needed
-
     // Add full stars
     Array(fullStars)
       .fill(0)
@@ -28,11 +24,9 @@ const AnimeCard = ({ animeImg, description, onClick, rating }) => {
 
     return starsArray;
   };
-  // console.log("getStars ", getStar());
   return (
     <div
       data-component="AnimeCard"
-      className="card-Container"
       onClick={onClick}
     >
       <div className="Image-container">
@@ -44,13 +38,6 @@ const AnimeCard = ({ animeImg, description, onClick, rating }) => {
       </div>
       <p className="animeDescription">{description}</p>
       <div className="rating-contianer">
-        {/* {getStar(rating).map((item, index) => {
-          return (
-            <div className="Stars" key={index}>
-              {item}
-            </div>
-          );
-        })} */}
         {getStars(rating).map((star) => {
           return (
             <span key={star.id} className={`star ${star.type}`}>
@@ -62,5 +49,4 @@ const AnimeCard = ({ animeImg, description, onClick, rating }) => {
     </div>
   );
 };
-
 export default AnimeCard;

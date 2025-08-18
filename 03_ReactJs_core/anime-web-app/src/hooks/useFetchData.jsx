@@ -1,28 +1,75 @@
 import { useEffect, useState } from "react";
 
-const useFetchData =(url)=>{
-    const [data,setData]=useState([])
-    const [loading,setLoading]=useState(false);
-    const [error, setError]=useState("")
+// Small helper to wait before next request
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-    useEffect(()=>{
-        const fetchData=async ()=>{
-            setLoading(true);
-            try {
-                const response=await fetch(url)
-                const result= await response.json();
-                setData(result)
-            } catch (error) {
-               setError(error)
-            } finally{
-                setLoading(false)
-            }
+const useFetch = (
+  url,
+  { page = 1, autoPaginate = false, uniqueById = false } = {},
+  initialData = []
+) => {
+  const [data, setData] = useState(initialData);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [hasNextPage, setHasNextPage] = useState(false);
+
+  useEffect(() => {
+    if (!url) return;
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        //  Respect API limit: max 3 req/sec
+        await sleep(333);
+
+        const response = await fetch(`${url}?page=${page}`, { signal });
+
+        if (!response.ok) {
+          throw new Error(`Request failed: ${response.status}`);
         }
 
-        fetchData()
-    },[url])
-    return [data,loading,error];
+        const result = await response.json();
+        const incomingData = result?.data || [];
 
-}
+        setData((prev) => {
+          if (!autoPaginate) {
+            // replace data if not paginating
+            return incomingData;
+          }
 
-export default useFetchData;
+          //  Pagination: append + remove duplicates if uniqueById = true
+          const merged = [...prev, ...incomingData];
+
+          if (uniqueById) {
+            return Array.from(
+              new Map(merged.map((item) => [item.mal_id, item])).values()
+            );
+          }
+
+          return merged;
+        });
+
+        setHasNextPage(result?.pagination?.has_next_page || false);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          setError({ message: err.message || "Something went wrong" });
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
+    return () => controller.abort();
+  }, [url, page, autoPaginate, uniqueById]);
+
+  return { data, loading, error, hasNextPage };
+};
+
+export default useFetch;

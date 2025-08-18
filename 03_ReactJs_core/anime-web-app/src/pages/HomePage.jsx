@@ -4,84 +4,90 @@ import AnimeCard from "../components/cardTemplate/AnimeCard";
 import BannerSlider from "../components/slider/BannerSlider";
 import "../scss/page/homePage.scss";
 import DropDown from "../components/dropDown/DropDown";
-import { ImageSlides } from "../utils/TextConstants";
 import { useNavigate } from "react-router-dom";
+import useFetch from "../hooks/useFetchData";
 const HomePage = () => {
-  const [data, setData] = useState([]);
-  const [page,setPage]=useState(1);
+  const [page, setPage] = useState(1);
+  const [selectedValue, setSelectedValue] = useState("");
   const navigate = useNavigate();
-  const loadingRef=useRef(null)
+  const loadingRef = useRef();
+  // console.log("HomePage",selectedValue)
+
+  // useFetch handles pagination, rate limiting, duplicates
+  const { data: animeData, loading, error, hasNextPage } = useFetch(
+    "https://api.jikan.moe/v4/top/anime",
+    { page, autoPaginate: true, uniqueById: true },
+    []
+  );
+
   const arr = ["TV", "Movie", "ONA", "OVA"];
   const arr2 = ["Genre", "Movie", "ONA", "OVA"];
   const arr3 = ["Year", "Movie", "ONA", "OVA"];
-  
-  const fetchAnimeCardData = async () => {
-    try {
-      const res = await fetch(`https://api.jikan.moe/v4/top/anime?page=${page}`);
-      const result = await res.json();
-      setData((prev)=>[...prev,...result.data]);
-    } catch (error) {
-      console.error("Soemthing went wrong during API call", error);
-    }
-  };
+
+  // Intersection Observer for infinite scroll
+  useEffect(() => {
+    if (!loadingRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && hasNextPage && !loading) {
+          setPage((prev) => prev + 1);
+        }
+      },
+      { threshold: 1 }
+    );
+
+    observer.observe(loadingRef.current);
+
+    return () => {
+      if (loadingRef.current) observer.unobserve(loadingRef.current);
+    };
+  }, [hasNextPage, loading]);
 
   const handleNavigation = (item) => {
-    navigate(`/anime-details/${item.mal_id}`, { state: item });
+    navigate(`/anime-details/${item.mal_id}`);
   };
-  useEffect(() => {
-    fetchAnimeCardData();
-  }, [page]);
 
-  //------- intersection observer --------------//
-  // useEffect(()=>{
-  //   if(!loadingRef.current) return
+  //handle onChhange on Category 
+  const handleDropDownChange =(value)=>{
+    setSelectedValue(value);
+  }
 
-  //   const loadingObserver =new IntersectionObserver(([entery])=>{
-  //     // console.log(entries)
-
-  //   },{threshold:1})
-
-  //   loadingObserver.observe(loadingRef.current)
-
-  //   return ()=>{
-  //     if(!loadingRef.current )loadingObserver.unobserve(loadingRef.current)
-  //   }
-  // },[])
-console.log("all anime details",data)
   return (
-    <div data-component="HomePage">
+    <div data-component="home">
       <Header />
-      <BannerSlider slides={ImageSlides} />
+      <BannerSlider />
+
       <div className="divider">
         <label className="divider-title">Anime</label>
         <div></div>
         <div className="Filter">
-          <DropDown arr={arr} />
-          <DropDown arr={arr2} />
-          <DropDown arr={arr3} />
+          <DropDown arr={arr}  onChange={handleDropDownChange} />
+          <DropDown arr={arr2}  onChange={handleDropDownChange} />
+          <DropDown arr={arr3}  onChange={handleDropDownChange} />
         </div>
       </div>
-      <section className="anime-card-container">
-        {data.map((item, index) => {
-          return (
+
+      <section className="anime-wrapper">
+        <div className="anime-card-container">
+          {animeData.map((item) => (
             <AnimeCard
-              key={index}
+              key={item.mal_id}
               animeImg={item.images.webp.image_url}
               description={item.title}
-              rating={item.score / 2}
-              onClick={() => {
-                handleNavigation(item);
-                // console.log("clicked card id:", item.mal_id, item);
-              }}
+              rating={item.score ? item.score / 2 : 0}
+              onClick={() => handleNavigation(item)}
             />
-          );
-        })}
-      </section>
+          ))}
+        </div>
 
-      {/* Hello */}
-      <div ref={loadingRef} className="end-message">
-            🎌 lOADING... 🎌
-          </div>
+        {/*  Intersection Observer trigger */}
+        <div ref={loadingRef} className="end-message">
+          {loading ? "🎌 LOADING... 🎌" : hasNextPage ? "Scroll for more" : "No more results"}
+        </div>
+
+        {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
+      </section>
     </div>
   );
 };

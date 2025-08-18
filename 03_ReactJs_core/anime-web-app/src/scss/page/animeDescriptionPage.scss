@@ -1,4 +1,4 @@
-@use "../abstract/variable" as abs;
+@use "../abstract" as *;
 [data-component="AnimeDetails"] {
   font-size: 16px;
   color: white;
@@ -148,7 +148,7 @@
     line-height: 100%;
     text-align: left;
     text-decoration: underline;
-    text-decoration-color: abs.$primary;
+    text-decoration-color: red;
     text-decoration-thickness: 3px;
     text-underline-offset: 8px;
   }

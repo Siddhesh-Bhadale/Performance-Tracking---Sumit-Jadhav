@@ -5,233 +5,197 @@ import image from "../../assets/images/dummyAnime.jpg";
 import StreamingCard from "../../components/cardTemplate/StreamingCard";
 import VideoCard from "../../components/cardTemplate/VideoCard";
 import useFetchData from "../../hooks/useFetchData";
+import useFetch from "../../hooks/useFetchData";
 
 const AnimeDescriptionPage = () => {
-  const params = useParams();
-  const [itemData, setItemData] = useState([]);
-  const [staffData, setStaffData] = useState([]);
-  const [characterData, setCharacterData] = useState([]);
-  const [episodesData,setEpisodesData]=useState([]);
-  const [episodeImagedata,setEpisodeImagedata]=useState([])
-  const loadingRef=useRef(null)
+    const params = useParams();
+    const loadingRef = useRef(null);
+    const [episodesPage, setEpisodesPage] = useState(1);
+    const [synopsisId,setSynopsisId]=useState(1)
 
-  useEffect(() => {
-    callAnimeApi();
-    callStaffApi();
-    callCharacterApi();
-    callAnEpisodesApi();
-    callAnimeEpisodeImage();
-  }, []);
-  const callAnimeApi = async () => {
-    try {
-      const res = await fetch(
-        `https://api.jikan.moe/v4/anime/${params.id}/full`
-      );
-      const data = await res.json();
-      setItemData(data);
-    } catch (error) {
-      console.error("something went wrong", error);
-    }
-  };
+    // State for controlling sequential API calls to avoid 429 errors
+    const [apiCallOrder, setApiCallOrder] = useState({
+        anime: true,    // Start with anime details first
+        staff: false,   // Enable after anime loads
+        character: false, // Enable after staff loads
+        episodes: false,  // Enable after character loads
+        synopsis: false     // Enable after episodes starts loading
+    });
 
-  const callStaffApi = async () => {
-    try {
-      const res = await fetch(
-        `https://api.jikan.moe/v4/anime/${params.id}/staff`
-      );
-      const data = await res.json();
-      setStaffData(
-        data?.data.map((item) => {
-          return item;
-        })
-      );
-    } catch (error) {
-      console.error("something went wring during calling Staff api", error);
-    }
-  };
 
-  const callCharacterApi = async () => {
-    try {
-      const res = await fetch(
-        `https://api.jikan.moe/v4/anime/${params.id}/characters`
-      );
-      const data = await res.json();
-      setCharacterData(
-        data?.data.map((item) => {
-          return item;
-        })
-      );
-    } catch (error) {
-      console.error("something went wring during calling Staff api", error);
-    }
-  };
 
-  const callAnEpisodesApi =async ()=>{
-    try {
-      const response =await fetch(`https://api.jikan.moe/v4/anime/${params.id}/episodes`)
-      const result= await response.json()
-      setEpisodesData(result?.data)
-      
-    } catch (error) {
-      console.error("Error while fething episodes data: - ",error)
-    }
-  }
 
-  const callAnimeEpisodeImage = async ()=>{
-    try {
-       const response =await fetch(`https://api.jikan.moe/v4/anime/${params.id}/videos`)
-      const result= await response.json()
-      setEpisodeImagedata(result?.data?.promo)
-    } catch (error) {
-       console.error("Error while fething episodes data: - ",error)
-    }
-  }
+    // Sequential API calls to respect rate limits
+    // 1. Main banner Section Anime Data
+    const { data: itemData, loading: itemLoading, error: itemError } = useFetch(
+        apiCallOrder.anime ? `https://api.jikan.moe/v4/anime/${params.id}/full` : null,
+        { autoPaginate: false },
+        {} // Initial data as empty object
+    );
 
-  //---- Intersection observer api -----//
-  // useEffect(()=>{
-  //   // console.log(loadingRef.current)
-  //   if(!loadingRef.current) return;
-  //   const loadingObserver= new IntersectionObserver((entries)=>{
-  //     console.log(entries)
-  //   },{threshold:1})
-  //   //mehtod observe: - it will absorve that partivular div -loading
-  //   loadingObserver.observe(loadingRef.current)
-  //   return ()=>{
-  //     // if  cleaner function have that div then it will remove the listner
-  //     if(loadingRef.current)loadingObserver.unobserve(loadingRef.current)
-  //   }
+   
+    // reference for an paginatedapi
+    //     const { data: animeData, loading, error, hasNextPage } = useFetch(
+    //     "https://api.jikan.moe/v4/top/anime",
+    //     { page, autoPaginate: true, uniqueById: true },
+    //     []
+    //   );
 
-  // },[])
-  // console.log("episodesData ---->",episodesData)
-  return (
-    <div data-component="AnimeDetails">
-      <section
-        className="banner"
-        style={{
-          backgroundImage: `url(${itemData?.data?.trailer?.images?.maximum_image_url})`,
-        }}
-      >
-        <div className="itemsContainer">
-          <img
-            className="item-image"
-            src={itemData?.data?.images?.webp?.image_url}
-          />
-          <div className="item-Details-container">
-            <span className="item-title">{itemData?.data?.title}</span>
-            <p className="item-description">{itemData?.data?.synopsis}</p>
-            <div className="table-container">
-              <div className="attribute-container">
-                <div className="attribute">
-                  <span>Year</span>
-                  <span>{itemData?.data?.year}</span>
+    // Transform Data Here 
+    // const episodeData=rawEpisodeData || [];
+    // const synopsisData=rawSynopsisData ||[];
+
+    // console.log("episode",episodeData)
+    // console.log("synopsis",synopsisData)
+
+
+
+//     //intersection Observer
+//      useEffect(() => {
+//     if (!loadingRef.current || !hasNextPage || !apiCallOrder.episodes) return;
+
+//     const loadingObserver = new IntersectionObserver(
+//       (entries) => {
+//         const loadingEntry = entries[0];
+        
+//         if (loadingEntry.isIntersecting && hasNextPage && !episodesLoading) {
+//           console.log("📡 Loading more episodes...");
+//           setEpisodesPage(prev => prev + 1);
+//         }
+//       },
+//       { threshold: 1 }
+//     );
+
+//     loadingObserver.observe(loadingRef.current);
+
+//     return () => {
+//       if (loadingRef.current) {
+//         loadingObserver.unobserve(loadingRef.current);
+//       }
+//     };
+//   }, [hasNextPage, episodesLoading, apiCallOrder.episodes]);
+
+    return (
+        <div data-component="AnimeDetails">
+            <section
+                className="banner"
+                style={{
+                    backgroundImage: `url(${itemData?.trailer?.images?.maximum_image_url ||
+                        itemData?.images?.webp?.large_image_url ||
+                        itemData?.images?.jpg?.large_image_url ||
+                        image})`,
+                }}
+            >
+                <div className="itemsContainer">
+                    <img
+                        className="item-image"
+                        src={itemData?.images?.webp?.image_url}
+                    />
+                    <div className="item-Details-container">
+                        <span className="item-title">{itemData?.title || "No data available"}</span>
+                        <p className="item-description">{itemData?.synopsis || "No data available"}</p>
+                        <div className="table-container">
+                            <div className="attribute-container">
+                                <div className="attribute">
+                                    <span>Year</span>
+                                    <span>{itemData?.year || "NA"}</span>
+                                </div>
+                                <div className="attribute">
+                                    <span>Rank</span>
+                                    <span>{itemData?.rank || "NA"}</span>
+                                </div>
+                            </div>
+                            <div className="attribute-container">
+                                <div className="attribute">
+                                    <span>Status</span>
+                                    <span>{itemData?.status || "NA"}</span>
+                                </div>
+                                <div className="attribute">
+                                    <span>Score</span>
+                                    <span>{itemData?.score || "NA"}</span>
+                                </div>
+                            </div>
+                            <div className="attribute-container" >
+                                <div className="attribute">
+                                    <span>Rating</span>
+                                    <span>{itemData?.rating || "NA"}</span>
+                                </div>
+                                <div className="attribute">
+                                    <span>Genre</span>
+                                    <span>
+                                        {itemData?.genres?.map((item) => {
+                                            return item.name + " ";
+                                        })}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="attribute">
-                  <span>Rank</span>
-                  <span>{itemData?.data?.rank}</span>
+                <div className="banner_overlay"></div>
+            </section>
+            <section className="episodes-container">
+                <label className="section-title">Episodes</label>
+                <div className="video-container">
+                    <div
+                        className="left-contiainer"
+                        style={{
+                            backgroundImage: `url(${itemData?.images?.webp?.large_image_url ||
+                                itemData?.images?.jpg?.large_image_url ||
+                                itemData?.trailer?.images?.maximum_image_url ||
+                                image})`,
+                        }}
+                    >
+                        {" "}
+                    </div>
+                    <div className="right-container ">
+                        <VideoCard paramId={params}/>
+
+                        {/* {episodeData?.map((item,index)=>{
+                           
+                            return( 
+                                <VideoCard
+                            key={index}
+                            image={item?.images?.jpg?.image_url}
+                            title={item?.title}
+                            // description={synopsisData?.map((item)=>item?.synopsis)}
+                            />
+                        )}
+                            )} */}
+
+                            
+                        {/* {episodeData?.map((item, index) => {
+                           // console.log("item-->",item.title)
+                           var episodeImage = episodeImagedata?.find((epImage, epIndex) => {
+                               // console.log("epImage--->",epImage)
+                               if (epImage?.title === item?.title) {
+                                   console.log("found match")
+                               }
+                               // console.log("episodeImage--->",episodeImage)/
+                           })
+                           return (
+                               <VideoCard
+                                   key={index}
+                                   image={itemData?.data?.trailer?.images?.maximum_image_url}
+                                   title={item?.title}
+                                   description={item?.title}
+                               />
+                           )
+                       })
+                       } */}
+
+
+                        <div ref={loadingRef}>Loading...</div>
+
+                    </div>
+
+
                 </div>
-              </div>
-              <div className="attribute-container">
-                <div className="attribute">
-                  <span>Status</span>
-                  <span>{itemData?.data?.status}</span>
-                </div>
-                <div className="attribute">
-                  <span>Score</span>
-                  <span>{itemData?.data?.score}</span>
-                </div>
-              </div>
-              <div className="attribute-container">
-                <div className="attribute">
-                  <span>Rating</span>
-                  <span>{itemData?.data?.rating}</span>
-                </div>
-                <div className="attribute">
-                  <span>Genre</span>
-                  <span>
-                    {itemData?.data?.genres.map((item) => {
-                      return item.name + " ";
-                    })}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+            </section>
+            
+
         </div>
-        <div className="banner_overlay"></div>
-        {/* <div cla>
-
-        </div> */}
-      </section>
-      <section className="episodes-container">
-        <label className="section-title">Episodes</label>
-        <div className="video-container">
-          <div
-            className="left-contiainer"
-            style={{
-              backgroundImage: `url(${itemData?.data?.trailer?.images?.maximum_image_url})`,
-            }}
-          >
-            {" "}
-          </div>
-          <div className="right-container ">
-           { episodesData.map((item,index)=>{
-  // console.log("item-->",item.title)
-  var episodeImage=episodeImagedata.find((epImage,epIndex)=> { 
-    // console.log("epImage--->",epImage)
-    if(epImage?.title===item?.title ){
-      console.log("found match")
-    } 
-  // console.log("episodeImage--->",episodeImage)/
-})
-  return(
-<VideoCard 
-        key={index} 
-        image={itemData?.data?.trailer?.images?.maximum_image_url} 
-        title={item?.title}
-        description={item?.title} 
-      />
-  )
-})
-}
-           
-            <div ref={loadingRef}>Loading...</div>
-          </div>
-        </div>
-      </section>
-      <section className="streaming-container">
-        <label className="section-title">Character</label>
-        <div className="character-section">
-          {/* {staffData} */}
-          {characterData.map((item, index) => {
-            return (
-              <div className="card-container" key={index}>
-                <StreamingCard
-                  name={item?.character?.name}
-                  image={item?.character?.images?.jpg?.image_url}
-                  isCircle={true}
-                />
-              </div>
-            );
-          })}
-        </div>
-        <label className="section-title">Cast</label>
-        <div className="character-section">
-          {staffData.map((item, index) => {
-            return (
-              <div className="card-container" key={index}>
-                <StreamingCard
-                  name={item?.person?.name}
-                  image={item?.person?.images?.jpg?.image_url}
-                  isCircle={false}
-                  role={item.positions[0]}
-                />
-              </div>
-            );
-          })}
-        </div>
-      </section>
-    </div>
-  );
+    );
 };
 
 export default AnimeDescriptionPage;

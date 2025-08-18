@@ -1,9 +1,10 @@
+@use '../abstract' as *;
 [data-component="DropDownComponent"] {
   &.dropDown {
     color: white;
   }
   .select-container {
-    min-height: 2em;
+    @include px-to-rem(min-height,10);
     max-width: 10em;
     background-color: transparent;
     color: #ed1c5b;

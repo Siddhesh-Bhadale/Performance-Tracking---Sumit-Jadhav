@@ -1,92 +1,36 @@
-@use "../abstract/variable" as abs;
-[data-component="HomePage"] {
-  .anime-card-container {
-    padding-left: 2em;
-    padding-right: 2em;
-    padding-bottom: 1em;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
-    align-items: center;
-    justify-content: center;
-    //   border: 1px solid red;
-  }
-  .divider {
-    display: flex;
-    padding-left: 4em;
-    padding-right: 2em;
-    padding-bottom: 2em;
-    //   border: 1px solid red;
-  }
+@use '../abstract' as *;
+[data-component='home']{
+  
+.divider {
+  @include display-center(row);
+    width: 80%;
+    margin: 0 auto;
+    justify-content: space-between;
+    padding: 0.6em;
   .divider-title {
-    font-size: 2rem;
-    font-weight: 800;
-    line-height: 100%;
-    color: abs.$primary;
-    font-family: fantasy;
+   @include titleText($dark_title_txt);
     text-align: left;
-    //   border: 1px solid white;
+
   }
   .Filter {
     display: flex;
     justify-content: flex-end;
     gap: 1em;
-    max-width: 30em;
+
   }
+    }
+    .anime-wrapper{
+      margin-bottom: 1em;
+      @include display-center(column);
 
-        .loader-container {
-          height: 4rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 2rem 0;
-        }
-
-        .loading-content {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-        }
-
-        .loading-spinner {
-          width: 1.5rem;
-          height: 1.5rem;
-          border: 3px solid #e5e7eb;
-          border-top: 3px solid #667eea;
-          border-radius: 50%;
-          animation: spin 1s linear infinite;
-        }
-
-        .loading-text {
-          color: #667eea;
-          font-weight: 500;
-        }
-
-        .placeholder-dot {
-          width: 1rem;
-          height: 1rem;
-          background-color: #d1d5db;
-          border-radius: 50%;
-        }
-
-        .end-message {
-          text-align: center;
-          padding: 3rem 0;
-          color: #9ca3af;
-          font-size: 1.125rem;
-        }
-
-        .debug-info {
-          position: fixed;
-          bottom: 1rem;
-          right: 1rem;
-          background: rgba(0, 0, 0, 0.8);
-          color: #fff;
-          padding: 0.75rem;
-          border-radius: 8px;
-          font-size: 0.75rem;
-          z-index: 1000;
-          backdrop-filter: blur(10px);
-          max-width: 20em;
-        }
+.anime-card-container{
+    @include display-center(row);
+    flex-wrap: wrap;
+     margin: 0 auto;
+      width: 80%;
+      padding: 1em;
+      gap: 1em;
+    }
+    }
+    
 }
