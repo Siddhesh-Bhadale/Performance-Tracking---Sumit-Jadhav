@@ -1,0 +1,60 @@
+@use '../abstract' as *;
+
+[data-components='MoreDetails'] {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  align-items: flex-start;
+
+  /* LEFT COLUMN */
+  .left-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 24px;
+
+    .inner-container {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      .inner-container-wrapper{
+         width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      }
+    }
+  }
+
+  /* RIGHT COLUMN */
+  .right-container {
+    width: 35%;
+    background-color:rgba(128, 128, 128, 0.416);
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(53, 53, 53, 0.137);
+    overflow-y: auto;
+    max-height: 80vh;
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: left;
+    text-decoration: underline;
+    text-decoration-color: $dark_title_txt;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+    display: flex;
+  }
+  .inner-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    scroll-snap-type: mandatory;
+  }
+}

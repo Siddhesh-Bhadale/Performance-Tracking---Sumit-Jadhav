@@ -1,0 +1,40 @@
+@use '../abstract' as *;
+[data-components='RecentlyViewed']{
+    @include display-center(row);
+    @include px-to-rem(padding-top,16);
+    @include px-to-rem(padding-bottom,16);
+    @include px-to-rem(padding-left,16);
+    overflow-x: auto;
+    overflow-y: hidden;
+    @include px-to-rem(padding,8);
+    scroll-behavior: smooth;
+    @include px-to-rem(gap,16);
+    scroll-padding-left: 20px;
+    // padding-left: 10px;
+    
+  /* Chrome scrollbar */
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #eee;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  
+  .card {
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: transform 0.2s ease;}
+
+}

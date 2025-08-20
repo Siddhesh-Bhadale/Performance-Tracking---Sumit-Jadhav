@@ -1,7 +1,9 @@
-@use "../abstract" as *;
+@use "../abstract/" as *;
 [data-component="AnimeDetails"] {
   font-size: 16px;
   color: white;
+  background: #020024;
+background: linear-gradient(90deg,rgba(2, 0, 36, 0.424) 15%, rgba(8, 8, 87, 0.523) 51%, rgba(2, 0, 36, 0.49) 75%);
   .banner {
     display: flex;
     min-height: 40em;
@@ -123,22 +125,43 @@
     gap: 1em;
     .video-container {
       gap: 2em;
-      display: flex;
       padding: 1em;
+      @include display-center(row);
 
-      .left-contiainer {
-        max-width: 60%;
-        min-height: 600px;
+      .left-container {
+        width: 60%;
+        height: 600px;
         background-repeat: no-repeat;
         background-size: cover;
+        background-position: center;
       }
-      .right-container {  
-    padding: 1em;
-    border: 1px solid white;
-    max-height: 700px;
-    overflow: hidden;
-    overflow-y: visible;
+      .right-container {
+        @include px-to-rem(padding,8);
+        width: 40%;
+        height: 600px;
+        overflow: hidden;
+        // overflow-y: visible;
+         overflow-y: auto;
+    overflow-x: hidden;
+    @include px-to-rem(padding,8);
+    scroll-behavior: smooth;
+         /* Chrome scrollbar */
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
 
+  &::-webkit-scrollbar-track {
+    background: #eee;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
       }
     }
   }

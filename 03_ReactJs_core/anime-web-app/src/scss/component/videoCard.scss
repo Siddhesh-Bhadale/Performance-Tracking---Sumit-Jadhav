@@ -17,17 +17,27 @@
     display: flex;
     flex-direction: column;
     & span {
-      font-size: 1.6em;
+      font-size: 1.4em;
+      font-weight: 800;
       text-align: left;
+      font-size: 1em;
+      margin: 0;
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
     & p {
-      text-align: justify;
+      font-size: 0.8em;
       margin: 0;
       display: -webkit-box;
       overflow: hidden;
       text-overflow: ellipsis;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+      color: gray;
+      text-align: left;
     }
   }
 }

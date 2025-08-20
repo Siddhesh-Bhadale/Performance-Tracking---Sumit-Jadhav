@@ -17,7 +17,7 @@ const StreamingCard = ({ name, image, isCircle = false, role }) => {
           <img src={image} className="squre-image" alt="" />
           <div className="description">
             <span>{name}</span>
-            <span>{role}</span>
+            {/* <span>{role}</span> */}
           </div>
         </div>
       )}
