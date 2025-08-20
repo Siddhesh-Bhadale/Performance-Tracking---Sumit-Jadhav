@@ -18,7 +18,7 @@ const MoreDetails = ({ paramId, data }) => {
         <label className="section-title">Producers</label>
         <Producers paramId={paramId} data={data?.producers}/>
         
-    </div>
+        </div>
         </div>
         <div className='inner-wrapper'>
         <label className="section-title">Recently Viewed</label>

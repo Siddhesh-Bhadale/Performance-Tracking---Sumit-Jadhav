@@ -71,13 +71,13 @@ const VideoCard = ({ paramId, ImageData }) => {
     const observers = [];
     
     episodes.forEach((episode) => {
-      const episodeElement = document.querySelector(`[data-episode-id="${episode.mal_id}"]`);
+      const episodeElement = document.querySelector(`[data-episode-id="${episode?.mal_id}"]`);
       if (!episodeElement) return;
       
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            addEpisodesToLoadingQueue(episode.mal_id);
+            addEpisodesToLoadingQueue(episode?.mal_id);
             observer.disconnect();
           }
         },

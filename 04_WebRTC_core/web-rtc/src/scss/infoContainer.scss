@@ -1,0 +1,33 @@
+[data-component='infoContainer']{
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+
+    .list-container{
+        font-size: 12px;
+        padding: 16px;
+        border: 1px solid;
+        align-items: center;
+        justify-content: center;
+    & span{
+        padding: 5px;
+        border: 1px solid;
+        margin-right: 8px;
+        border-radius: 8px;
+        background-color: rgb(31, 31, 84);
+        font-size: 0.9rem;
+        font-weight: 700;
+    }
+    
+    }
+    & label{
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: red;  
+        margin-top: 8px;
+    }
+}

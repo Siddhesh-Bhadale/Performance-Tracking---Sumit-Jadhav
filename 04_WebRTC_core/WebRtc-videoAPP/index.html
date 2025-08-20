@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.jsx"></script>
+</head>
+
+<body>
+    <header class="note-header">
+        <h1 class="title-name">WebRTC Copy-Paste Demo (No Server)</h1>
+        <div id="stepContainer" class="steps-contianer">
+            <span class="step">1) Start Camera</span>
+            <span class="step">2) Create/Copy Offer (Peer A)</span>
+            <span class="step">3) Paste/Answer (Peer B) </span>
+            <span class="step">4) Paste Answer (Peer A) </span>
+        </div>
+        <span class="header-note">Tip: open this same file in two tabs/windows.</span>
+    </header>
+
+    <section class="videos-container">
+        <!-- local client -->
+        <div class="local-client-contianer">
+            <label class="title client-title">Your Camera (Local)</label>
+            <video id="local-client-video" class="lc-video-container"></video>
+            <div class="lc-Btn-container">
+                <button id="startBtn" class="lc-Btn startBtn">Start Camera</button>
+                <button id="muteBtn" class="lc-Btn muteBtn">Toggle Mute</button>
+                <button id="toggleCamBtn" class="lc-Btn switchCamBtn">Toggle Camera</button>
+                <button id="hangupBtn" class="lc-Btn hangUpBtn">Hang Up</button>
+
+            </div>
+        </div>
+
+        <!-- Remote client -->
+        <div class="remote-client-contianer">
+            <label class="title remote-client-title">Remote Stream</label>
+            <video id='remote-client-video' class="lc-video-container"></video>
+            <label>Peer not connected.</label>
+        </div>
+    </section>
+    <section class="Offer-answer-container">
+        <div class="left-container">
+            <label class="offer-title">Offer / Answer Exchange</label>
+            <div class="local-offer-container">
+                <div class="peer-A-offer">
+                    <label>Your Offer (Peer A)</label>
+                    <textarea class="textArea" id="offerOut" placeholder="Click 'Create Offer' to generate JSON SDP..."
+                        readonly=""></textarea>
+                        <div class="copy-row">
+                <button id="btnCreateOffer" class="accent2">
+                  Create Offer
+                </button>
+                <button id="btnCopyOffer">Copy Offer</button>
+              </div>
+                </div>
+                <div class="peer-B-offer">
+                    <label>Paste Remote Offer (Peer B)</label>
+                    <textarea class="textArea" id="offerIn" placeholder="Paste Peer A's JSON here then click 'Set remote Offer"
+                        readonly=""></textarea>
+                        <div class="copy-row">
+                <button id="btnSetRemoteOffer" class="accent2">
+                  Set Remote Offer
+                </button>
+                <button id="btnCopyOffer">Clear</button>
+              </div>
+                </div>
+
+            </div>
+            <div class="local-offer-container">
+                <div class="peer-B-offer">
+                    <textarea class="textArea" id="AnswerOut" placeholder="Click 'Create Answer' after setting remote offer..."
+                        readonly=""></textarea>
+                        <div class="copy-row">
+                <button id="btnCreateAnswer" class="accent1">
+                  Create Answer
+                </button>
+                <button id="btnCopyAnswer">Copy Answer</button>
+              </div>
+                </div>
+                <div class="peer-A-offer">
+                    <textarea class="textArea" id="AnswerIn" placeholder="Paste Peer B's JSON here, then click 'Set Remote Answer'"
+                        readonly=""></textarea>
+                        <div class="copy-row">
+                <button id="btnSetRemoteAnswer" class="accent1">
+                  Set Remote Answer
+                </button>
+                <button id="btnCopyAnswer">Clear</button>
+              </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="right-container">
+            <label>Debug / states</label>
+            
+        </div>
+
+    </section>
+</body>
+
+</html>

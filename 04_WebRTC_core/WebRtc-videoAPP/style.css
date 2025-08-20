@@ -1,0 +1,184 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    /* background-color: black; */
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    background-color: #1e293b;
+}
+
+.title-name {
+    font-size: 2rem;
+    color: white;
+    font-weight: 900;
+}
+
+.steps-contianer {
+    display: flex;
+    padding: 1rem;
+}
+
+.step {
+    border: 1px solid;
+    margin-right: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.8rem;
+    background-color:#0b551c;
+    color: white;
+    font-weight: 700;
+    line-height: 100%;
+    font-size: 1rem;
+
+}
+
+.header-note {
+    font-size: 1.3rem;
+    color: red;
+    font-weight: 800;
+    margin-left: 1rem;
+}
+
+.videos-container {
+    padding: 16px;
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+
+
+}
+
+.local-client-contianer {
+    border: 1px solid black;
+    width: 100%;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    padding: 1rem;
+}
+
+.remote-client-contianer {
+    border: 1px solid black;
+    width: 100%;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    padding: 1rem;
+}
+
+.title {
+    color: white;
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+
+.lc-video-container {
+    border: 1px solid black;
+    width: 100%;
+    margin-top: 0.6rem;
+}
+
+.lc-Btn-container {
+    display: flex;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+}
+
+.lc-Btn {
+    width: 30%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 0.6rem;
+    font-weight: 900;
+    font-size: 1rem;
+    padding: 0.3rem;
+    border-radius: 8px;
+}
+
+.startBtn {
+    background-color: rgb(66, 192, 66);
+}
+
+.muteBtn {
+    background-color: #0b2a0e;
+}
+
+.switchCamBtn {
+    background-color: #0b2a55;
+}
+
+.hangUpBtn {
+    background-color: red;
+}
+
+.textArea {
+    width: 100%;
+    min-height: 160px;
+    resize: vertical;
+    background: #0b1020;
+    color: var(--text);
+    border: 1px solid #15213b;
+    border-radius: 12px;
+    padding: 10px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    line-height: 1.3;
+}
+
+.copy-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+button {
+    border: 1px solid #1e293b;
+    background: #0b1325;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.06s ease, 0.2s ease, border 0.2s ease;
+}
+
+.accent1 {
+    border-color: #0b551c;
+    background: #0b2a0e;
+    color: #dbebff;
+}
+
+.accent2 {
+    border-color: #0b2a55;
+    background: #0b1a2a;
+    color: #dbebff;
+}
+
+.local-offer-container {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.offer-title {
+    font-size: 1.8rem;
+    color: white;
+    font-weight: 900;
+    line-height: 100%;
+    padding: 1rem;
+
+}
+
+.Offer-answer-container {
+    border: 1px solid;
+    margin-top: 1rem;
+    padding: 1rem;
+    gap: 1rem;
+}
