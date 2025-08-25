@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/path/to/your/favicon.ico" type="image/x-icon">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="note-header">
+        <h1 class="title-name">WebRTC-with Backend </h1>
+        <div id="stepContainer" class="steps-contianer">
+            <input id="targetIdInput" class="enter targetId" placeholder="enter your targetID" />
+            <button id="submitTargetBtn">Submit TargetID</button>
+        </div>
+        <div class="attr-contianer">
+
+            <h2 class="target-id" id="targetID"><span>Target ID: - </span></h2>
+            <h2 class="client-id" id="clientID"><span>Client ID: - </span></h2>
+            <button id="isConnectedBtn">disConnected</button>
+
+        </div>
+    </header>
+
+    <section class="videos-container">
+        <!-- local client -->
+        <div class="local-client-contianer">
+            <label class="title client-title">Your Camera (Local)</label>
+            <video id="local-client-video" class="lc-video-container" autoplay muted></video>
+        </div>
+
+        <!-- Remote client -->
+        <div class="remote-client-contianer">
+            <label class="title remote-client-title">Remote Stream</label>
+            <video id="remote-client-video" class="lc-video-container" autoplay></video>
+            <!-- <label id="success">Peer not connected.</label> -->
+        </div>
+    </section>
+    <!-- <button id="startCall"> Start Call</button>     -->
+
+    <section class="Offer-answer-container">
+        <div class="left-container">
+            <label class="offer-title">Offer / Answer Exchange</label>
+            <!-- Debug Container -->
+            <div class="right-container">
+                <label class="debug-title">Debug / Logs</label>
+                <div id="debugConsole" class="debug-console">
+                    <p>[System] Waiting for peer connection...</p>
+                </div>
+            </div>
+    </section>
+    <script src="./js/script.js"></script>
+
+</body>
+
+</html>

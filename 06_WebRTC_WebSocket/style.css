@@ -1,0 +1,229 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+    color: white;
+}
+
+body {
+    /* background-color: black; */
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    background-color: #1e293b;
+}
+
+.title {
+    color: white;
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+
+.title-name {
+    font-size: 2rem;
+    color: white;
+    font-weight: 900;
+    /* border: 1px solid; */
+}
+
+.lc-video-container {
+    border: 1px solid black;
+    width: 100%;
+    margin-top: 0.6rem;
+    /* background: black; */
+}
+
+
+.steps-contianer {
+
+    padding: 1rem;
+    flex-direction: column;
+    gap: 12px
+}
+
+.steps-contianer input {
+    padding: 8px;
+}
+
+.steps-contianer button {
+    padding: 10px;
+    border: 1px solid white;
+}
+
+.step {
+    border: 1px solid;
+    margin-right: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.8rem;
+    background-color: #0b551c;
+    color: white;
+    font-weight: 700;
+    line-height: 100%;
+    font-size: 1rem;
+
+
+}
+
+
+.header-note {
+    font-size: 1.3rem;
+    color: red;
+    font-weight: 800;
+    margin-left: 1rem;
+}
+
+
+.videos-container {
+    padding: 16px;
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+
+
+
+}
+
+
+.local-client-contianer {
+    border: 1px solid black;
+    width: 100%;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    padding: 1rem;
+    flex: 1 1 300px;
+}
+
+
+.remote-client-contianer {
+    border: 1px solid black;
+    width: 100%;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    padding: 1rem;
+    flex: 1 1 300px;
+}
+
+
+.attr-contianer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.attr-contianer button {
+    max-width: 200PX;
+    border: 1px solid;
+
+}
+
+
+
+
+
+
+
+
+
+button {
+    flex: 1 1 120px;
+    border: 1px solid #1e293b;
+    background: #0b1325;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.06s ease, 0.2s ease, border 0.2s ease;
+}
+
+
+.accent1 {
+    border-color: #0b551c;
+    background: #0b2a0e;
+    color: #dbebff;
+}
+
+
+.accent2 {
+    border-color: #0b2a55;
+    background: #0b1a2a;
+    color: #dbebff;
+}
+
+
+.local-offer-container {
+    display: flex;
+    /* border: 1px solid white; */
+    gap: 16px;
+    /* flex-wrap: wrap; */
+}
+
+
+
+/* Offer & Answer Section */
+.Offer-answer-container {
+    margin-top: 1.5rem;
+    display: grid;
+    /* grid-template-columns: 2fr 1fr; */
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+
+
+.debug-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+}
+
+
+.debug-console {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 0.6rem;
+    padding: 0.8rem;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    height: 300px;
+    overflow-y: auto;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.debug-console p {
+    margin-bottom: 0.3rem;
+}
+
+
+.debug-console p::before {
+    content: ">";
+    color: #22c55e;
+    margin-right: 0.4rem;
+}
+
+.offer-label {
+    color: white;
+    font-weight: 600;
+    font-size: small;
+    display: flex;
+    /* border: 1px solid; */
+    padding: 0.6rem;
+}
+
+.offer-title {
+    font-size: 1.8rem;
+    color: white;
+    font-weight: 900;
+    line-height: 100%;
+    padding: 1rem;
+}
