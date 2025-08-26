@@ -4,54 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/path/to/your/favicon.ico" type="image/x-icon">
-    <title>Document</title>
+    <link rel="icon"
+        href="https://play-lh.googleusercontent.com/R2K9Ws9xpTzaomIXQBK4WR1sDy6MM-wSV6dYtRXAyotLXUZpqOz2lCsos_uB7uh0bCQ=w240-h480-rw"
+        type="image/x-icon">
+    <title>webRTC+backend</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <header class="note-header">
-        <h1 class="title-name">WebRTC-with Backend </h1>
-        <div id="stepContainer" class="steps-contianer">
-            <input id="targetIdInput" class="enter targetId" placeholder="enter your targetID" />
-            <button id="submitTargetBtn">Submit TargetID</button>
-        </div>
-        <div class="attr-contianer">
-
-            <h2 class="target-id" id="targetID"><span>Target ID: - </span></h2>
-            <h2 class="client-id" id="clientID"><span>Client ID: - </span></h2>
-            <button id="isConnectedBtn">disConnected</button>
-
-        </div>
+    <header class="header-container">
+        <h1 class="heading-title">WebRTC with Backend</h1>
     </header>
+    <div class="target-container">
+        <label id="targetID">Target ID: -</label>
+        <label id="clientID">client ID: -</label>
+        <button id="connectionBtn" class="callBtn connectedBtn">Disconnected</button>
+    </div>
+    <div class="input-contianer">
+        <input id='targetInput' class="input" placeholder="Enter your target ID" />
+        <button id='targetBtn' class="callBtn targetBtn">set Target</button>
+    </div>
+    <div class="button-contianer">
+        <button id='startCallBtn' class="callBtn start-Btn">Start Call</button>
+        <button id="hangUpCallBtn" class="callBtn hangup-Btn">Hangup Call</button>
+    </div>
 
-    <section class="videos-container">
-        <!-- local client -->
-        <div class="local-client-contianer">
-            <label class="title client-title">Your Camera (Local)</label>
-            <video id="local-client-video" class="lc-video-container" autoplay muted></video>
+    <section class="screen-container">
+        <div class="local-video-container">
+            <label>your camera (Local)</label>
+            <video id="localVideo" class="lc-video-container" autoplay>
+
+            </video>
         </div>
-
-        <!-- Remote client -->
-        <div class="remote-client-contianer">
-            <label class="title remote-client-title">Remote Stream</label>
-            <video id="remote-client-video" class="lc-video-container" autoplay></video>
-            <!-- <label id="success">Peer not connected.</label> -->
+        <div class="remote-video-container">
+            <label>remote</label>
+            <video id='remoteVideo' class="rm-video-container" autoplay> </video>
         </div>
     </section>
-    <!-- <button id="startCall"> Start Call</button>     -->
-
-    <section class="Offer-answer-container">
-        <div class="left-container">
-            <label class="offer-title">Offer / Answer Exchange</label>
-            <!-- Debug Container -->
-            <div class="right-container">
-                <label class="debug-title">Debug / Logs</label>
-                <div id="debugConsole" class="debug-console">
-                    <p>[System] Waiting for peer connection...</p>
-                </div>
-            </div>
-    </section>
+    <!-- <script src='./class/WebRTCConnection.js'></script> -->
     <script src="./js/script.js"></script>
 
 </body>

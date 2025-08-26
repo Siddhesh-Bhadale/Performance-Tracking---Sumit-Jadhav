@@ -1,258 +1,253 @@
-// Configuration constants
-const SIGNAL_WS_URL = "http://10.10.10.10:8050/ws"; // Ensure ws:// is used, not http://
+//url
+const SIGNAL_WS_URL = "http://10.10.10.10:8050/ws";
 const clientId = "Web-" + Math.floor(Math.random() * 10000);
 
-// DOM elements
-const localVideo = document.getElementById("local-client-video");
-const remoteVideo = document.getElementById("remote-client-video");
-const startCallBtn = document.getElementById("startCall");
-const submitTargetBtn = document.getElementById("submitTargetBtn");
-const targetIdInput = document.getElementById("targetIdInput");
-const logs = document.getElementById("debugConsole")
-const targetID = document.getElementById("targetID");
-const clientUniqueId = document.getElementById('clientID');
-const isConnected = document.getElementById('isConnectedBtn');
-
+// essential variables
+let socket;
 let connected = false;
-
-// WebRTC variables
-let pc;
+let peerConnection;
 let localStream;
-let ws;
-let iceCandidatesQueue = []
+let eventListner = new Map(); // all event are going into this 
+let pc;
 
-// Step 1: Connect to WebSocket signaling server
+// get all Dom element 
+
+const get = (id) => document.getElementById(id);
+
+const localVideo = get('localVideo');
+const remoteVideo = get('remoteVideo');
+const submitTargetBtn = get('targetBtn');
+const targetInput = get('targetInput');
+const isConnectedBtn = get('connectionBtn');
+const targetText = get('targetID');
+const clientIdTxt = get('clientID');
+const startCam = get('startCallBtn');
+const hangupCam = get('hangUpCallBtn');
+
+clientIdTxt.textContent = "Client ID: - " + clientId;
+
+// step 1:- connect to the webSocket signaling server
+// console.log("script is running")
 function connectSignaling() {
-    ws = new WebSocket(SIGNAL_WS_URL);
+    if (socket) return
+    socket = new WebSocket(SIGNAL_WS_URL);
 
-    ws.onopen = () => {
-        console.log("step:1--> Connected to signaling server");
-        // Register this client
-        ws.send(JSON.stringify({
-            type: "register",
-            clientType: "web",
-            id: clientId,
-        }));
-    };
+    //---register user first
+    socket.onopen = () => {
+        console.log('webSocket is running');
+        connected = true;
+        isConnectedBtn.innerText = 'Connected';
 
-    clientUniqueId.textContent = "Client ID: - " + clientId
-
-    ws.onmessage = async (msg) => {
-        console.log(msg)
-        const payload = JSON.parse(msg.data);
-        console.log("step 2---> Received from signaling server:", payload);
-
-        switch (payload.type) {
-            case "system-message":
-                console.log("System message run")
-                break;
-            case "offer":
-                console.log("offer run")
-                await handleOffer(payload);
-                break;
-            case "answer":
-                console.log("answer run")
-                await handleAnswer(payload);
-                break;
-            case "ice-candidate":
-                console.log("ice-candidate run")
-                if (payload.data) {
-                    console.log("Received ICE candidate:", payload.data);
-                    pc.addIceCandidate(new RTCIceCandidate(payload.data));
-                }
-                break;
-            case "error-message":
-                if (payload.details) {
-                    console.error("Received an error message:", payload.details);
-                } else {
-                    console.error("Received an error message with no details:", payload);
-                }
-                break;
-            default:
-                console.warn("Unknown message type:", payload.type);
-                break;
-        }
-    };
-
-    ws.onerror = (error) => {
-        console.error("WebSocket Error:", error);
-    };
-
-    // ws.onclose = () => {
-    //     console.log("WebSocket connection closed");
-    // };
-}
-
-// Step 2: Setup PeerConnection
-async function createPeerConnection(targetId) {
-    console.log("Creating new RTCPeerConnection...");
-    pc = new RTCPeerConnection();
-
-    // Get local media stream
-    try {
-        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
-        localVideo.srcObject = localStream;
-    } catch (error) {
-        console.error("Error accessing media devices:", error);
-        return;
+        socket.send(JSON.stringify(
+            {
+                type: 'register',
+                clientType: 'web',
+                id: clientId
+            }
+        ));
     }
 
-    // Handle remote stream when it arrives
-    pc.ontrack = (event) => {
-        console.log("Received remote stream:", event);
-        remoteVideo.srcObject = event.streams[0];
-    };
+    //---message event
+    socket.onmessage = (event) => {
+        try {
+            const msg = JSON.parse(event.data);
+            console.log('Message Recived', msg);
 
-    // Handle ICE candidate events
+            const listener = eventListner.get(msg?.type);
+            if (listener) {
+                listener.forEach(cb => {
+                    cb(msg)
+                });
+            }
+        } catch (error) {
+            console.log('Error parsing message: - ', error.message)
+        }
+    }
+
+    //--- close socket
+    socket.onclose = () => {
+        connected = false;
+        isConnectedBtn.innerText = 'Disconnected';
+    }
+
+    //----- error 
+    socket.onerror = () => {
+        console.error('websocket Error')
+    }
+}
+
+//---------- close the connection ----------------//
+function disconnect() {
+    if (socket) {
+        socket.close();
+        socket = null;
+        connected = false;
+        eventListner.clear();
+    }
+}
+
+
+
+//------ step 2: - Capture local video stream 
+
+async function startLocalStream() {
+    try {
+        localStream = await navigator.mediaDevices.getUserMedia({
+            video: true, audio: true
+        })
+        localVideo.srcObject = localStream;
+        console.log("localStream", localStream)
+    } catch (error) {
+        console.log('Error acessing webcam', error.message)
+    }
+
+}
+
+//----- start localstream on startCam  button
+startCam.addEventListener('click', startLocalStream)
+//------- hangup all events
+hangupCam.addEventListener('click', hangUP)
+
+//--------- step3 create peer connection
+
+function createPeerConnection(remoteId) {
+    const config = {
+        iceServers: [{ urls: "stun:stun.l.google.com:19302" }]
+    }
+    pc = new RTCPeerConnection(config);
+
     pc.onicecandidate = (event) => {
         if (event.candidate) {
-            // Check if the WebSocket is open before sending
-            if (ws.readyState === WebSocket.OPEN) {
-                ws.send(JSON.stringify({
-                    type: "ice-candidate",
-                    toType: "web",
-                    toId: targetId,
-                    data: event.candidate,
-                }));
-                // Send any queued candidates
-                while (iceCandidatesQueue.length > 0) {
-                    ws.send(JSON.stringify({
-                        type: "ice-candidate",
-                        toType: "web",
-                        toId: targetId,
-                        data: iceCandidatesQueue.shift(),
-                    }));
-                }
-            } else {
-                console.warn("WebSocket is not open. Buffering ICE candidate.");
-                iceCandidatesQueue.push(event.candidate);
-            }
+            sendIceCandidate("ice-candidate", "web", remoteId, event.candidate);
         }
-    };
+    }
 
-    // When the WebSocket opens, send any buffered candidates
-    ws.onopen = () => {
-        console.log("WebSocket connection established.");
-        while (iceCandidatesQueue.length > 0) {
-            ws.send(JSON.stringify({
-                type: "ice-candidate",
-                toType: "web",
-                toId: targetId,
-                data: iceCandidatesQueue.shift(),
-            }));
-        }
-    };
+    pc.ontrack = (event) => {
+        remoteVideo.srcObject = event.streams[0];
+    }
 
-    // Handle WebSocket closure to potentially attempt reconnection
-    // ws.onclose = () => {
-    //     console.warn("WebSocket connection closed.");
-    //     // Implement reconnection logic here if needed
-    // };
-
-    return pc;
+    localStream.getTracks().forEach(track => {
+        pc.addTrack(track, localStream);
+    })
+    return pc
 }
 
-// Step 3: Start the Call (Make an Offer)
+function hangUP() {
+    pc.close();
+    localStream.getTracks().forEach((t) => t.stop());
+}
 
-async function startCall(targetId) {
-    console.log("Target ID--->", targetId)
-    if (!targetId) {
-        alert("Target ID is required!");
-        return;
-    }
-    console.log("WebSocket readyState:", ws.readyState);
-    console.log("Starting call to target ID:", targetId);
-    pc = await createPeerConnection(targetId);
-
+//--- step 4:- handle offer/Answer Signaling
+async function createOffer(remoteId) {
+    peerConnection = createPeerConnection(remoteId)
     try {
+        const offer = await peerConnection.createOffer();
+        await peerConnection.setLocalDescription(offer);
+        sendOffer("offer", "web", remoteId, offer);
+    } catch (error) {
+        console.log('Error while creating offer: ', error.message)
+    }
+}
 
+async function handleOffer(offer, remoteId) {
+    peerConnection = createPeerConnection(remoteId);
+    try {
+        await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+        const answer = await peerConnection.createAnswer();
+        await peerConnection.setLocalDescription(answer);
+        sendAnswer("answer", "web", remoteId, answer);
+    } catch (error) {
+        console.log('Error handling offer: ', error)
+    }
+}
 
-        const offer = await pc.createOffer();
-        await pc.setLocalDescription(offer);
-        console.log("Sending offer:", offer);
+async function handleAnswer(answer) {
+    try {
+        if (peerConnection.signalingState !== 'stable') {
+            await peerConnection.setRemoteDescription(new RTCSessionDescription(answer))
 
-        // Check if the WebSocket is open before sending
-        if (ws.readyState === WebSocket.OPEN) {
-            ws.send(JSON.stringify({
-                type: "offer",
-                toType: "web",
-                toId: targetId,
-                data: offer,
-            }));
         } else {
-            console.error("WebSocket is not open. Cannot send message.");
-            // Handle the case where the WebSocket is not open (e.g., attempt to reconnect)
+            console.warn("Attempted to set remote description (answer) in stable state.")
         }
-
-    } catch (err) {
-        console.error("Error creating offer:", err);
+    } catch (error) {
+        console.log("Error handling answer: ", error)
     }
+
 }
 
-// Step 4: Handle Offer and Respond with Answer
-async function handleOffer(payload) {
-    console.log("step 3 ---> Handling incoming offer from", payload.id);
-    pc = await createPeerConnection(payload.toId);
-    // console.log("hadle offer --->", pc)
-
-    await pc.setRemoteDescription(new RTCSessionDescription(payload.data));
-
+async function handleIceCandidate(candidate) {
     try {
-        const answer = await pc.createAnswer();
-        await pc.setLocalDescription(answer);
-        console.log("Sending answer:", { sdp: answer.sdp });
-
-        ws.send(JSON.stringify({
-            type: "answer",
-            toType: payload.toType,
-            toId: payload.id, // reply to the offer sender
-            data: { sdp: answer.sdp },
-        }));
-    } catch (err) {
-        console.error("Error creating answer:", err);
+        await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+    } catch (error) {
+        console.error("Error adding ICE candidate: ", error);
     }
 }
 
-// Step 5: Handle Answer from Remote Peer
-async function handleAnswer(payload) {
-    console.log("Handling remote answer from", payload.id);
-    await pc.setRemoteDescription(new RTCSessionDescription(payload.data));
+// Send message to the signaling server
+function send(data) {
+    if (socket && connected) {
+        socket.send(JSON.stringify(data));
+    } else {
+        console.log("Cannot send, socket not connected");
+    }
 }
 
-// Initialize WebSocket connection
-connectSignaling();
+// Send offer, answer, ICE candidate, etc.
+function sendOffer(type, toType, toId, data) {
+    send({ type, toType, toId, data });
+}
 
-// Bind submit target ID button
-submitTargetBtn.onclick = () => {
-    const targetId = targetIdInput.value
-    if (targetId) {
-        startCall(targetId);
-        targetID.textContent = "Target ID:- " + targetId
+function sendAnswer(type, toType, toId, data) {
+    send({ type, toType, toId, data });
+}
+
+function sendIceCandidate(type, toType, toId, data) {
+    send({ type, toType, toId, data });
+}
+
+// Button Event Listeners
+submitTargetBtn.addEventListener("click", () => {
+    const targetId = targetInput.value;
+    targetText.textContent = "Target ID: - " + targetId
+    if (targetId && connected) {
+        createOffer(targetId);
     } else {
-        console.warn("Target ID is required!");
+        console.log("Please connect first or enter a valid target ID.");
     }
-};
+});
 
-// Start the call when the "Start Call" button is clicked
-// startCallBtn.onclick = () => {
-//     const targetId = targetIdInput.value
-//     if (targetId) {
-//         startCall(targetId);
-//     } else {
-//         alert("Please enter a Target ID first.");
-//     }
-// };
-
-isConnected.onclick = () => {
-    connected = !connected
-    if (connected === true) {
-        isConnected.textContent = "Connected"
-        isConnected.style.color = "green";
+isConnectedBtn.addEventListener("click", () => {
+    if (connected) {
+        isConnectedBtn.innerText = "Disconnected";
+        isConnectedBtn.style.color = 'red';
+        disconnect();
     } else {
-        isConnected.textContent = "disconnected"
-        isConnected.style.color = "red";
+        isConnectedBtn.innerText = "Connected";
+        isConnectedBtn.style.color = 'green';
+        connectSignaling();
     }
+});
 
-    console.log(connected)
+
+
+// // Register Event Listeners
+on("offer", (msg) => {
+    handleOffer(msg?.data, msg?.from?.id);
+});
+
+on("answer", (msg) => {
+    console.log("answer-Event--->", msg.data)
+    handleAnswer(msg.data);
+});
+
+on("ice-candidate", (msg) => {
+    console.log('ice-candidate--->', msg.data);
+    handleIceCandidate(msg.data);
+});
+// Helper function to add event listeners for different message types
+function on(event, callback) {
+    if (!eventListner.has(event)) {
+        eventListner.set(event, []);
+    }
+    eventListner.get(event)?.push(callback);
 }
