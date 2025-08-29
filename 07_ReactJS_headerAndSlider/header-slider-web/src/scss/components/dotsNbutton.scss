@@ -1,0 +1,76 @@
+@use '../abstracts' as *;
+
+[data-component="dotsNbtn-container"] {
+    @include display-center(row);
+    width: 100%;
+    justify-content: space-evenly;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding: 1em;
+
+    .arrowBtnImg {
+        height: 30px;
+        cursor: pointer;
+    }
+
+    & button {
+        background-color: $dark_titleTxt
+    }
+
+    .dots-container {
+        @include display-center(row);
+        gap: 0.5em;
+        z-index: 2;
+
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &.active-dot {
+                background-color: $dark_titleTxt;
+            }
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.8);
+            }
+        }
+    }
+
+
+    @include mobile_devices() {
+        .arrowBtnImg {
+            height: 15px;
+            cursor: pointer;
+        }
+
+        .dots-container {
+            .dot {
+                width: 6px;
+                height: 6px;
+            }
+
+        }
+
+    }
+
+    @include tablet_devices() {
+        .arrowBtnImg {
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .dots-container {
+            .dot {
+                width: 9px;
+                height: 9px;
+            }
+
+        }
+
+    }
+}
