@@ -3,14 +3,16 @@ import { header } from '../../utils/TextConstants';
 import { NavLink } from '../../utils/StaticData';
 import searchIcon from '../../assets/icons/search.svg'
 import '../../scss/components/header.scss'
+import useDebounce from '../../hooks/debounce/useDebounce';
 
 
-const HeaderComponent = () => {
+const HeaderComponent = ({ search }) => {
     const [searchValue, setSearchValue] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const handleSearch = (event) => {
         setSearchValue(event);
+        search(event);
     }
     return (
         <div data-component="header">
@@ -31,7 +33,7 @@ const HeaderComponent = () => {
             <div className='search-bar-container'>
                 <div className='searchBar-Wrapper'>
                     <img alt='search-icon' src={searchIcon} className='search-Icon' />
-                    <input className='search-input' placeholder='Enter anime details here....' value={searchValue} onChange={(e) => handleSearch(e.target.value)} />
+                    <input className='search-input' placeholder='Anime,Manga,etc...' value={searchValue} onChange={(e) => handleSearch(e.target.value)} />
                 </div>
 
             </div>

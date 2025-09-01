@@ -3,9 +3,10 @@
 [data-component='header'] {
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
 
     .logo-contianer {
         @include display-center('row');
@@ -39,7 +40,7 @@
 
         .searchBar-Wrapper {
             @include display-center('row');
-            background-color: rgba(128, 128, 128, 0.434);
+            background-color: #1f1f1f;
             padding: 0.3rem;
             padding-left: 0.4rem;
             width: 100%;
