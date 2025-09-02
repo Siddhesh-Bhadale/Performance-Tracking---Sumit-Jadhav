@@ -3,7 +3,6 @@ import { header } from '../../utils/TextConstants';
 import { NavLink } from '../../utils/StaticData';
 import searchIcon from '../../assets/icons/search.svg'
 import '../../scss/components/header.scss'
-import useDebounce from '../../hooks/debounce/useDebounce';
 
 
 const HeaderComponent = ({ search }) => {

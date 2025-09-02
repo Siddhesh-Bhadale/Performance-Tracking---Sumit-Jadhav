@@ -1,4 +1,5 @@
 import React from 'react'
+import '../../scss/layouts/animeListLayout.scss'
 
 const AnimeListLayout = () => {
     return (

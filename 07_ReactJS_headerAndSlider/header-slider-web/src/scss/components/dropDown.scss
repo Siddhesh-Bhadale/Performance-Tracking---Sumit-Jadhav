@@ -1,0 +1,48 @@
+@use '../abstracts/' as *;
+
+[data-component='drop-down'] {
+    @include display-center(column);
+    width: 100%;
+    padding: 1rem;
+
+    .parent-container {
+        @include display-center(row);
+        border: 1px solid rgb(255, 0, 43);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        position: relative;
+        gap: 1rem;
+        min-width: 200px;
+
+        .main-title {
+            display: flex;
+            color: rgb(255, 0, 43);
+            font-weight: 800;
+            font-size: 1.2rem;
+            min-width: 8rem;
+        }
+
+        .down-image {
+            height: 16px;
+            width: 16px;
+        }
+
+        .up-image {
+            height: 16px;
+            width: 16px;
+            transform: rotate(3.142rad);
+        }
+    }
+
+    .child-container {
+        height: 300px;
+        width: 200px;
+        background-color: transparent;
+        border: 1px solid white;
+        border-radius: 0.5rem;
+        position: absolute;
+        z-index: 2;
+        bottom: -10%;
+        transform: translateY(-50%);
+    }
+}
