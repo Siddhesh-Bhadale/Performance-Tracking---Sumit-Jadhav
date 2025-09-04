@@ -20,8 +20,19 @@ const HomePage = () => {
             <div className='body-container'>
                 <SliderComponent />
             </div>
-            <section style={{ display: 'flex' }}>
-                <DropDown /> <DropDown />
+            <section className='drop-down-contianer'>
+                <DropDown
+                    data={['Movie', 'Tv', 'Live', 'Cartoon']}
+                    title="Type"
+                    onChange={(selected) => setSelectedItem(selected)}
+                />
+                <DropDown
+                    data={{ a: 'Upcomming', b: 'OnBoarding', c: "Air", d: "launched" }}
+                    isMulti={true}
+                    title="status"
+                    multiSelect={true}
+                    onChange={(selected) => setSelectedItem(selected)}
+                />
                 {/* <AnimeListLayout /> */}
             </section>
 

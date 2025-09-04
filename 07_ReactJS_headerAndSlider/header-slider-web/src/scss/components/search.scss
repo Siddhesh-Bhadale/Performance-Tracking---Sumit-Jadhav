@@ -1,0 +1,41 @@
+@use '../abstracts' as *;
+
+[data-component='search-component'] {
+    @include display-center('row');
+    background-color: black;
+    padding: 0.6rem;
+    padding-left: 0.4rem;
+    width: 100%;
+
+    .search-Icon {
+        height: 24px;
+        width: 24px;
+        object-fit: fill;
+    }
+
+    .search-input {
+
+        padding: 0.4rem;
+        background-color: transparent;
+        outline: none;
+        width: 100%;
+        border: none;
+        overflow: hidden;
+        font-weight: 700;
+
+    }
+
+    .search-input::placeholder {
+        color: grey;
+    }
+
+    @include mobile_devices {
+        .search-input {
+            font-size: 0.6rem;
+        }
+
+        .search-input::placeholder {
+            font-size: 0.6rem;
+        }
+    }
+}

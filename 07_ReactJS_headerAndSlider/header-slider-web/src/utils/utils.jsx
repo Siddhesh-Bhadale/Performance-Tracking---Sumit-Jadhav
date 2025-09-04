@@ -28,3 +28,10 @@ export function startAutoSlide(autoSliderTimer, setActiveIndex) {
         setActiveIndex((currentIndex) => currentIndex === slideImagesArr.length - 1 ? 0 : currentIndex + 1);
     }, 5000)
 }
+
+// filter items from an array
+export function filteredEntries(entries, searchTerm) {
+    return entries.filter(([key, value]) =>
+        String(value).toLowerCase().includes(searchTerm.toLowerCase())
+    );
+} 

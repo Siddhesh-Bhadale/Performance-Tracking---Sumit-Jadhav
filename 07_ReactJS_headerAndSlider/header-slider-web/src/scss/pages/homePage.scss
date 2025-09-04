@@ -1,8 +1,16 @@
+@use '../abstracts' as *;
+
 [data-component='homepage'] {
     background-color: #1a1a1a;
     height: 100dvh;
 
     .body-container {
         padding: 1rem;
+    }
+
+    .drop-down-contianer {
+        @include display-center(row);
+        gap: 2rem;
+        flex-wrap: nowrap;
     }
 }

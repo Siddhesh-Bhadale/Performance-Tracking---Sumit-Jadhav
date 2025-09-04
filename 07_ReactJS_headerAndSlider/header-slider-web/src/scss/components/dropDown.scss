@@ -1,48 +1,141 @@
-@use '../abstracts/' as *;
+@use '../abstracts' as *;
 
 [data-component='drop-down'] {
-    @include display-center(column);
-    width: 100%;
-    padding: 1rem;
+
+    position: relative;
+    width: 200px;
 
     .parent-container {
         @include display-center(row);
-        border: 1px solid rgb(255, 0, 43);
-        padding: 1rem;
+        justify-content: space-between;
+        background-color: transparent;
+        border: 2px solid $dark_titleTxt;
+        color: $dark_titleTxt;
+        padding: 0.5rem 1rem;
         border-radius: 0.5rem;
-        position: relative;
-        gap: 1rem;
-        min-width: 200px;
+        cursor: pointer;
+        width: 100%;
+        box-sizing: border-box;
 
         .main-title {
-            display: flex;
-            color: rgb(255, 0, 43);
-            font-weight: 800;
             font-size: 1.2rem;
-            min-width: 8rem;
+            font-weight: 900;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 140px;
         }
 
-        .down-image {
-            height: 16px;
-            width: 16px;
+        img {
+            height: 20px;
+            width: 20px;
+            transition: transform 0.3s ease-in-out;
         }
 
         .up-image {
-            height: 16px;
-            width: 16px;
-            transform: rotate(3.142rad);
+            transform: rotate(180deg);
+        }
+
+        .down-image {
+            transform: rotate(0deg);
         }
     }
 
     .child-container {
-        height: 300px;
-        width: 200px;
-        background-color: transparent;
-        border: 1px solid white;
-        border-radius: 0.5rem;
         position: absolute;
-        z-index: 2;
-        bottom: -10%;
-        transform: translateY(-50%);
+        top: 120%;
+        left: 0;
+        width: 100%;
+        background-color: $dark_Primary;
+        border-radius: 0.5rem;
+        z-index: 10;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+        box-sizing: border-box;
+
+        .dropdown-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: none;
+            outline: none;
+            background-color: $dark_Primary;
+            color: #fff;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #444;
+        }
+
+        .dropdown-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: auto;
+            overflow-y: auto;
+
+            .dropdown-item {
+                padding: 0.75rem 1rem;
+                color: $dark_titleTxt;
+                cursor: pointer;
+                font-weight: 700;
+                gap: 1rem;
+
+                & input {
+                    margin-right: 1rem
+                }
+
+                ;
+
+                &.selected {
+                    background-color: $dark_titleTxt;
+                    color: white;
+                }
+
+                &:hover {
+                    background-color: $dark_titleTxt;
+                    color: white;
+                }
+
+                &.disabled {
+                    color: #888;
+                    pointer-events: none;
+                }
+            }
+        }
     }
+
+    @include mobile_devices {
+        width: 150px;
+
+        .parent-container {
+            border: 1px solid;
+
+            .main-title {
+                font-size: 0.8rem;
+                font-weight: 600;
+            }
+
+            img {
+                height: 12px;
+                width: 12px;
+            }
+        }
+
+        .child-container {
+            .dropdown-list {
+                .dropdown-item {
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    border: qpx solid white;
+
+                    &input {
+                        height: 6px;
+                        width: 6px;
+                        // font-size: 0.5rem;
+                    }
+
+                }
+            }
+        }
+
+    }
+
 }
