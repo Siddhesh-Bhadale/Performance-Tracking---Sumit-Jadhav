@@ -23,7 +23,7 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            max-width: 140px;
+            min-width: 140px;
         }
 
         img {
@@ -50,8 +50,16 @@
         border-radius: 0.5rem;
         z-index: 10;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-        overflow: hidden;
         box-sizing: border-box;
+        // height: 200px;
+        overflow-y: auto;
+
+        .block-container {
+            content: " ";
+            height: 40px;
+            background-color: $dark_black;
+            border-bottom: 1px solid rgba(128, 128, 128, 0.307);
+        }
 
         .dropdown-input {
             width: 100%;
@@ -63,6 +71,7 @@
             font-size: 0.9rem;
             border-bottom: 1px solid #444;
         }
+
 
         .dropdown-list {
             list-style: none;
