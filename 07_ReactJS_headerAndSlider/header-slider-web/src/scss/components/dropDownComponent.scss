@@ -24,7 +24,7 @@
         .down_arrow_img {
             height: 20px;
             width: 20px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease-in-out;
         }
 
         .up-img {
@@ -91,6 +91,10 @@
 
         .active {
             background-color: $dark_titleTxt;
+        }
+
+        .inactive {
+            background-color: transparent;
         }
 
         .end_container {

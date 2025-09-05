@@ -30,7 +30,7 @@ const HomePage = () => {
 
 
 
-    const arr = ["Tv", "show", "Genoure", "series", "Tv", "show", "Genoure", "series", "Tv", "show", "Genoure", "series"];
+    const arr = ["Tv", "show", "Genoure", "series"];
     const arr2 = ["Tv", "show", "Genoure"]
 
     return (
