@@ -34,4 +34,7 @@ export function filteredEntries(entries, searchTerm) {
     return entries.filter(([key, value]) =>
         String(value).toLowerCase().includes(searchTerm.toLowerCase())
     );
-} 
+}
+
+//random number generator
+export const randomNumber = Math.floor(Math.random() * 10000)

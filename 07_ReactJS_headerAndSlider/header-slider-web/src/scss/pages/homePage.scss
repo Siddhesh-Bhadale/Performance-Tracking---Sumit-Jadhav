@@ -11,6 +11,6 @@
     .drop-down-contianer {
         @include display-center(row);
         gap: 2rem;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
     }
 }

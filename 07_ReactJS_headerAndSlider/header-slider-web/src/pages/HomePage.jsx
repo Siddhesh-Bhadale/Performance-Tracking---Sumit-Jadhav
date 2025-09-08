@@ -10,28 +10,12 @@ import DropDownComponent from '../components/drop-down/DropDownComponent';
 
 const HomePage = () => {
     const [searchValue, setSearchValue] = useState('')
-    const debounceValue = useDebounce(searchValue)
-    const [dropDownValue, setDropDownValue] = useState('show')
-    const [dropDownOpen, setDropDownOpen] = useState(false)
-
-
-
-    // useEffect(() => {
-
-    //     const parentID = document.getElementById('parent')
-    //     function handleCloseDropdown() {
-    //         setDropDownOpen(false)
-    //         console.log("mouseDown clicked", dropDownOpen)
-
-    //     }
-    //     parentID.addEventListener('mousedown', handleCloseDropdown)
-    //     console.log(dropDownOpen)
-    // }, [dropDownOpen])
-
-
+    const [animeCategories, setAnimeCategories] = useState('show');
+    const [streamCategory, setStreamCategory] = useState('favourite');
+    const [thirdCategory, setThirdCategory] = useState('favourite');
 
     const arr = ["Tv", "show", "Genoure", "series"];
-    const arr2 = ["Tv", "show", "Genoure"]
+    const arr2 = ["favourite", "airing", "bypopularity", "favourites"]
 
     return (
         <div data-component='homepage' id='parent'>
@@ -42,41 +26,37 @@ const HomePage = () => {
                 <SliderComponent />
             </div>
             <section className='drop-down-contianer'>
-                {/* <DropDown
-                    data={['Movie', 'Tv', 'Live', 'Cartoon']}
-                    title="Type"
-                    onChange={(selected) => setSelectedItem(selected)}
-                />
-                <DropDown
-                    data={arr}
-                    isMulti={true}
-                    title="status"
-                    multiSelect={true}
-                    onChange={(selected) => setSelectedItem(selected)}
-                />
-                <DropDown
-                    data={{ a: 'Upcomming', b: 'OnBoarding', c: "Air", d: "launched" }}
-                    isMulti={true}
-                    title="status"
-                    multiSelect={true}
-                    onChange={(selected) => setSelectedItem(selected)}
-                /> */}
+
                 <DropDownComponent
                     title='Type'
                     options={arr}
-                    deafaultValue={dropDownValue}
-                    result={setDropDownValue}
-                    isDropDownOpen={(e) => setDropDownOpen(e)}
+                    deafaultValue={animeCategories}
+                    result={setAnimeCategories}
                 />
-                {/* <DropDownComponent title='Type'
+
+                <DropDownComponent
+                    title='Type'
                     options={arr2}
-                    deafaultValue={dropDownValue}
-                    result={setDropDownValue} /> */}
+                    deafaultValue={streamCategory}
+                    result={setStreamCategory}
+                />
+
+                <DropDownComponent
+                    title='Type'
+                    options={arr2}
+                    deafaultValue={thirdCategory}
+                    result={setThirdCategory}
+                />
 
 
             </section>
             <section style={{ height: "400px " }}>
-                <label>{`Selected Drop Down value: - ${dropDownValue}`}</label>
+                <label>{`Selected Drop Down value: - ${animeCategories}`}</label> <br />
+
+                <label>{`Selected second Drop Down value: - ${streamCategory}`}</label> <br />
+
+                <label>{`Selected third Drop Down value: - ${thirdCategory}`}</label>
+
 
             </section>
 

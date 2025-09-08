@@ -1,76 +1,46 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import '../../scss/components/dropDownComponent.scss';
 import { DropDownTxt } from '../../utils/TextConstants';
 import downArrow from '../../assets/icons/down.svg';
-import useOutSideTouch from '../../hooks/outSideTouch/useOutSideTouch';
 
 const DropDownComponent = (props) => {
-    const { options = [], title = 'select', result, deafaultValue, isDropDownOpen } = props;
+    const { options = [], title = 'select', result, deafaultValue } = props;
     const [isOpen, setIsOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(deafaultValue);
-    const parentId = document.getElementById('parentContainer');
-    const firstChild = document.getElementById('secondChild')
-    // const secondChild = document.getElementById('secondChild');
-    // const dropDownItem = document.getElementById('dropDownItem');
-    // console.log("dropDownItem---->", dropDownItem)
-    // console.log()
-
+    const dropDownId = useId();
+    //------ on / off drop down ---------------//
     const handleToggleOpen = () => {
         setIsOpen(!isOpen)
     }
-
-
-
-    const handleItemClick = (item, idx) => {
-        // console.log(isOpen)
-        if (selectedItem === item) {
-            setSelectedItem(title);
-            dropDownItem.style.backgroundColor = 'transparent';
-            result && result('');
-            // setIsOpen(false)
-
-        } else {
-            setSelectedItem(item);
-            result && result(item);
-            // setIsOpen(false)
-
-        }
-
+    const handleItemClick = (item) => {
+        setSelectedItem(selectedItem === item ? title : item)
+        result && result(selectedItem === item ? '' : item)
+        setIsOpen(false)
     }
 
     //---------------- 1st way to solve the problem with ref ----------------//
-    // we need three props ref, ()=>,state-value of that toggle
     useEffect(() => {
-        const handleMouseClickEvent = (e) => {
-            if (secondChild.id === e.target.parentElement.parentElement.parentElement.id) {
-                console.log('child Element clicked')
-            } else {
-                setIsOpen(false)
-            }
-
-            // if(parentId)
-            // parentId.addEventListener('click')
-        }
         if (isOpen === true) {
             document.addEventListener('mousedown', (e) => handleMouseClickEvent(e))
+        }
+        const handleMouseClickEvent = (e) => {
+            if (e.target.closest(`[data-component='dropDownComponent']`)) {
+                const parentId = document.getElementById(dropDownId)
+                if (parentId.id !== e.target.closest(`[data-component='dropDownComponent']`).id) {
+                    setIsOpen(false)
+                }
+            } else { setIsOpen(false) }
+
         }
         return (() => {
             document.removeEventListener('mousedown', handleMouseClickEvent)
         })
     }, [isOpen])
-    //---------- 2nd way to solve the problem with on blur ---  --------------//
-    // const handleToggleOff = (e) => {
-    //     if (!dropdownRef.current.contains(e.relatedTarget)) setIsOpen(false)
-
-    // }
     return (
         <div data-component='dropDownComponent'
-            id='parentContainer'
-        // tabIndex={0}
-        // onBlur={(e) => { handleToggleOff(e) }}
+            id={dropDownId}
         >
             <div className='parent_component'
-                id='firstChild'
                 onClick={handleToggleOpen}
             >
                 <label className='title_section'>{selectedItem}</label>
@@ -92,9 +62,7 @@ const DropDownComponent = (props) => {
                                 {item}
                             </li>
                         ))}
-                        {/* <div className='end_container'></div> */}
                     </div>
-
                 </div>}
             </div>
 
