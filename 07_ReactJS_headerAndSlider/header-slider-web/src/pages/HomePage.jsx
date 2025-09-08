@@ -11,12 +11,13 @@ import DropDownComponent from '../components/drop-down/DropDownComponent';
 const HomePage = () => {
     const [searchValue, setSearchValue] = useState('')
     const [animeCategories, setAnimeCategories] = useState('show');
-    const [streamCategory, setStreamCategory] = useState('favourite');
-    const [thirdCategory, setThirdCategory] = useState('favourite');
+    const [streamCategory, setStreamCategory] = useState({ id: 1, value: "favourite" });
+    const [thirdCategory, setThirdCategory] = useState("Apple");
 
     const arr = ["Tv", "show", "Genoure", "series"];
-    const arr2 = ["favourite", "airing", "bypopularity", "favourites"]
-
+    const arr2 = [{ id: 1, value: "favourite" }, { id: 2, value: "airing" }, { id: 3, value: "abc" }, { id: 4, value: "bypopularity" }]
+    // const arr2 = [{ 'status': "favourite" }, { 'status': "airing" }, { 'status': "bypopularity" }, { 'status': "favourites" }]
+    // const arr3 = [{ 1: "Apple" }, { 2: "banana" }, { 3: "kiwi" }]
     return (
         <div data-component='homepage' id='parent'>
             <HeaderComponent
@@ -40,24 +41,26 @@ const HomePage = () => {
                     deafaultValue={streamCategory}
                     result={setStreamCategory}
                 />
-
-                <DropDownComponent
+                {/* <DropDownComponent
                     title='Type'
-                    options={arr2}
+                    options={arr3}
                     deafaultValue={thirdCategory}
                     result={setThirdCategory}
-                />
+                /> */}
 
 
             </section>
             <section style={{ height: "400px " }}>
                 <label>{`Selected Drop Down value: - ${animeCategories}`}</label> <br />
 
-                <label>{`Selected second Drop Down value: - ${streamCategory}`}</label> <br />
+                <label>{`Selected second Drop Down value: - ${JSON.stringify(streamCategory)}`}</label> <br />
+                <label>{`Selected second Drop Down value: - ${streamCategory.value}`}</label>
 
-                <label>{`Selected third Drop Down value: - ${thirdCategory}`}</label>
+                {/* {arr.map((item, idx) => {
+                    console.log("Home page--->", item && item.value ? item.value : item)
+                })
 
-
+                } */}
             </section>
 
         </div>

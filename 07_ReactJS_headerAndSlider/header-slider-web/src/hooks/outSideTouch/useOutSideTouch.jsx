@@ -1,21 +1,25 @@
 import React from 'react'
 import { useEffect } from 'react'
 
-const useOutSideTouch = ({ ref, handler }) => {
+const useOutSideTouch = ({ className, id, isOpen, handler }) => {
     useEffect(() => {
-        const handleOutsideClick = (event) => {
-            if (ref.current && !ref.current.contains(event.target)) {
-                console.log("Target:-  ", !ref.current.contains(event.target))
-                handler()
-            }
+        if (isOpen === true) {
+            document.addEventListener('mousedown', (e) => handleMouseClickEvent(e))
         }
+        const handleMouseClickEvent = (e) => {
 
-        document.addEventListener('mousedown', handleOutsideClick);
+            if (e.target.closest(className)) {
+                const parentId = document.getElementById(id)
+                if (parentId.id !== e.target.closest(className).id) {
+                    handler()
+                }
+            } else { handler() }
 
+        }
         return (() => {
-            document.removeEventListener('mousedown', handleOutsideClick)
+            document.removeEventListener('mousedown', handleMouseClickEvent)
         })
-    }, [ref, handler])
+    }, [isOpen])
 }
 
-export default useOutSideTouch
+export default useOutSideTouch;
