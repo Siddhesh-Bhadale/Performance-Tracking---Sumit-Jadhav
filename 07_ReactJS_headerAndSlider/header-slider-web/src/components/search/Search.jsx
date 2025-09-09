@@ -1,16 +1,12 @@
 import React, { useState } from 'react'
 import '../../scss/components/search.scss'
 import searchIcon from '../../assets/icons/search.svg'
-import useDebounce from '../../hooks/debounce/useDebounce'
+
 
 const Search = (props) => {
-    const { searchIcon = false, placeholder = "Enter ...", Search } = props
+    const { searchIcon = false, placeholder = "Enter ...", value, onChange } = props
     const [searchValue, setSearchValue] = useState("");
-    const debounce = useDebounce(searchValue)
-    const handleSearch = (event) => {
-        setSearchValue(event);
-        Search(event)
-    }
+
 
     return (
         <div data-component='search-component'>
@@ -20,9 +16,9 @@ const Search = (props) => {
             }
 
             <input className='search-input'
-                placeholder='Anime,Manga,etc...'
-                value={searchValue}
-                onChange={(e) => handleSearch(e.target.value)} />
+                placeholder={placeholder || 'Anime,Manga,etc...'}
+                value={searchValue || value}
+                onChange={(e) => onChange(e.target.value)} />
         </div>
     )
 }
