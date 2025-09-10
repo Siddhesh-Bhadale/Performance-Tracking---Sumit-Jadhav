@@ -19,6 +19,9 @@
             font-weight: 900;
             line-height: normal;
             color: $dark_titleTxt;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         .down_arrow_img {
@@ -55,6 +58,32 @@
             background-color: black;
         }
 
+        .dropdown-btn-contianer {
+            height: 50px;
+            width: 100%;
+
+            @include display-center(row);
+            justify-content: space-between;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+
+            .dropdown--btn {
+                font-size: 0.8rem;
+                background-color: rgba(255, 255, 255, 0.248);
+                color: rgb(255, 255, 255);
+                font-weight: 700;
+                border: none;
+            }
+
+            .dropdown--select-all-btn:hover {
+                background-color: $dark_titleTxt;
+            }
+
+            .dropdown--clear-btn:hover {
+                background-color: $dark_titleTxt;
+            }
+        }
+
         .drop_down_list {
             font-size: 1rem;
             font-weight: 700;
@@ -71,12 +100,6 @@
                 padding: 0.7rem;
                 list-style: none;
 
-                & input {
-                    margin-right: 1rem
-                }
-
-                ;
-
                 &.selected {
                     background-color: $dark_titleTxt;
                     color: white;
@@ -86,6 +109,18 @@
                     background-color: $dark_titleTxt;
                     color: white;
                 }
+
+                .tick-img {
+                    height: 16px;
+                    width: 18px;
+                    object-fit: cover;
+                    margin-right: 1rem;
+                    place-content: center;
+                }
+            }
+
+            .inner-list-item:hover {
+                background-color: $dark_titleTxt !important;
             }
         }
 
