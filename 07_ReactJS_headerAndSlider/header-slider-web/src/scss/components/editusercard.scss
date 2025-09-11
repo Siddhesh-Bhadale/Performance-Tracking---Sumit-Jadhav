@@ -1,0 +1,60 @@
+@use '../abstracts' as *;
+
+[data-component='edituser-card-component'] {
+    @include display-center(column);
+    display: flex;
+    border-radius: 8px;
+    background-color: white;
+    justify-content: flex-start;
+    align-items: normal;
+    padding: 1rem;
+
+
+
+    .edituser-card-items {
+        @include display-center(row);
+        align-items: normal;
+        justify-content: flex-start;
+        margin-bottom: 1rem;
+
+        .user-card-label {
+            display: flex;
+            font-size: 1rem;
+            font-weight: 900;
+            line-height: normal;
+            color: black;
+            padding: 0.3rem;
+            text-align: justify;
+            width: 7rem !important;
+        }
+
+        .edituser-inputContainer {
+            background-color: transparent;
+            border: 1px solid gray;
+            border-radius: 8px;
+            color: black;
+            padding-left: 0.6rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+
+        }
+    }
+
+    .user-card-edit-contianer {
+        @include display-center(row);
+        justify-content: flex-end;
+        gap: 1rem;
+
+        .user-card-edit-btn {
+            max-height: 3rem;
+            max-width: 6rem;
+            background-color: black;
+            color: white;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: normal;
+        }
+    }
+}

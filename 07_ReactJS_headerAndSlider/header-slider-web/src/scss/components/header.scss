@@ -93,6 +93,7 @@
         @include display-center(row);
         border: 0.4px solid white;
         position: relative;
+        z-index: 6;
     }
 
     .header-mobile-menue {
@@ -100,10 +101,11 @@
         border: 1px solid white;
         display: flex;
         flex-direction: column;
-        height: 94%;
+        height: 100%;
         width: 60%;
-        top: 6%;
+        top: 0;
         left: 0;
+
         background-color: $dark_Primary;
         cursor: pointer;
         transition: color 0.3s ease;
@@ -112,6 +114,7 @@
 
         .mobile-nav {
             @include display-center(column);
+            margin-top: 4rem;
 
             .nav-links {
                 font-size: 1.4rem;

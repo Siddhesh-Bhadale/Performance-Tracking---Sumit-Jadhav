@@ -1,25 +1,33 @@
-import React, { useState } from 'react'
+import React, { useId, useState } from 'react'
 import { header } from '../../utils/TextConstants';
 import { NavLink } from '../../utils/StaticData';
 import searchIcon from '../../assets/icons/search.svg'
 import '../../scss/components/header.scss'
+import useOutSideTouch from '../../hooks/outSideTouch/useOutSideTouch';
 
 
 const HeaderComponent = ({ search }) => {
     const [searchValue, setSearchValue] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const headerId = useId()
     const handleSearch = (event) => {
         setSearchValue(event);
         search(event);
     }
+    useOutSideTouch({
+        className: ('[data-component="header"]'),
+        id: headerId,
+        isOpen: isOpen,
+        handler: () => setIsOpen(false)
+    })
     return (
-        <div data-component="header">
+        <div data-component="header" id={headerId}>
             <button
                 className='hamburger'
                 onClick={() => setIsOpen(!isOpen)}
             >
-                {isOpen ? "☰" : "✖"}
+                {isOpen ? "✖" : "☰"}
             </button>
             <div className='logo-contianer'>
                 <label className='web-title'>{header?.title || header.notAvailable}</label>
