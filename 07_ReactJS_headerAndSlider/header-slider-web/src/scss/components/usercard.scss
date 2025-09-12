@@ -11,76 +11,90 @@
     width: 350px;
     height: 300px;
 
-    .user-card-edit-details-container {
-        @include display-center(row);
-    }
 
-    .user-card-edit-details-component {
-        @include display-center(row);
-        align-items: normal;
-        justify-content: flex-start;
-        margin-bottom: 1rem;
+    .user-card-edit-contianer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
 
-
-
-        .user-card-edit-user-label {
+        .user-card-edit-btn {
+            max-height: 3rem;
+            max-width: 6rem;
+            background-color: rgb(9, 139, 237) !important;
+            color: white;
+            border: none;
+            font-size: 1rem;
             font-weight: 900;
-            color: black;
-            font-size: 1.1rem;
-            min-width: 7rem;
-            padding: 0.4rem;
-        }
-
-        .user-card-edit-user-input {
-            background-color: transparent;
-            border: 1px solid gray;
-            border-radius: 8px;
-            color: black;
-            padding-left: 0.6rem;
-        }
-    }
-
-
-
-    .user-card-edit-user-input {}
-
-    .user-card-edit-btn {
-        max-height: 3rem;
-        max-width: 6rem;
-        background-color: black !important;
-        color: white;
-        border: none;
-        font-size: 0.9rem;
-        font-weight: 700;
-        line-height: normal;
-
-
-    }
-
-    .inactive {
-        background-color: gray !important;
-    }
-
-    .active {
-        background-color: black !important;
-    }
-
-
-
-
-    .user-card-label {
-        font-size: 1rem;
-        font-weight: 500;
-        line-height: normal;
-        color: rgb(63, 63, 63);
-        padding: 0.3rem;
-        text-align: justify;
-
-        & strong {
-            font-size: 1.1rem;
-            font-weight: 700;
             line-height: normal;
-            color: rgb(30, 30, 30);
+
+
         }
+
+        .inactive {
+            background-color: gray !important;
+        }
+
+        .active {
+            background-color: rgb(9, 139, 237) !important;
+        }
+    }
+
+    .user-card-data-contianer {
+        @include display-center(column);
+        justify-content: center;
+        place-items: center;
+        align-items: normal;
+        border: 1px solid rgb(0, 0, 0);
+
+        // width: 100%;
+        .user-card-label {
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: normal;
+            color: rgb(63, 63, 63);
+            padding: 0.3rem;
+            border: 1px solid;
+
+            & strong {
+                font-size: 1.2rem;
+                font-weight: 700;
+                line-height: normal;
+                color: rgb(30, 30, 30);
+                margin-right: 1rem;
+            }
+        }
+    }
+
+
+
+    @include mobile_devices {
+        // background-color: red;
+        width: 180px;
+        height: 180px;
+
+        .user-card-edit-contianer {
+            padding: 0.5rem;
+
+            .user-card-edit-btn {
+                height: 1.3rem;
+                width: 3rem;
+                font-size: 0.6rem;
+            }
+
+        }
+
+        .user-card-data-contianer {
+            .user-card-label {
+                font-size: 0.7rem;
+                flex-wrap: nowrap;
+
+                & strong {
+                    font-size: 0.7rem;
+                    margin-right: 0px;
+                }
+            }
+
+        }
+
     }
 }

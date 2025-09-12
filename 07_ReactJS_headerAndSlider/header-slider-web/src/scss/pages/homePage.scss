@@ -17,18 +17,6 @@
     }
 
     .homepage-card-container {
-        // @include display-center(row);
-        display: grid;
-        grid-template-columns: auto auto auto auto;
-        justify-content: space-evenly;
-        align-items: normal;
-        padding: 2rem;
-        padding: 1rem;
-
-        .user-card-container {
-            margin-right: 1rem;
-            margin-bottom: 1rem;
-
-        }
+        place-content: center;
     }
 }

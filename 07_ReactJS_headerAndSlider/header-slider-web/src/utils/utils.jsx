@@ -38,3 +38,9 @@ export function filteredEntries(entries, searchTerm) {
 
 //random number generator
 export const randomNumber = Math.floor(Math.random() * 10000)
+
+//
+export function getData(userData, newUpdateduser) {
+    const data = userData.map((item, index) => item?.id !== newUpdateduser?.id ? item : newUpdateduser);
+    return data
+}

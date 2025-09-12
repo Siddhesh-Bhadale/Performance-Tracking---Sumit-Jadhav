@@ -3,44 +3,24 @@ import '../../../scss/components/editusercard.scss'
 
 
 const EditUserCard = (props) => {
-    const { onBack, userData, isChildVisible, onFormSubmit, onSubmit, activeId } = props
+    const { id, firstName, lastName, gender, email, ip_address, onClose, onSubmit } = props
     const [formData, setFormData] = useState({
-        id: userData.id,
-        firstname: userData.firstName,
-        lastName: userData.lastName,
-        gender: userData.gender,
-        email: userData.email,
-        ip_address: userData.ip_address
+        id: id || null,
+        firstname: firstName || null,
+        lastName: lastName || null,
+        gender: gender || null,
+        email: email || null,
+        ip_address: ip_address || null
     })
 
     const handleChange = (e) => {
-        setFormData((prev) => {
-            return { ...prev, [e.target.name]: e.target.value }
-        })
-    }
-    // const handleSubmit = () => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
 
-    //     updatedUserData && updatedUserData(formData)
-
-    // }
-    const handleBack = (e) => {
-        e.preventDefault();
-        onBack(false);
-    }
-
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        onFormSubmit(formData)
-        onSubmit(false)
-    }
-    useEffect(() => {
-        activeId && activeId(formData.id)
-        isChildVisible && isChildVisible(true)
-    }, [])
 
     return (
-        <form onSubmit={handleFormSubmit} data-component='edituser-card-component'>
-
+        <div data-component='edituser-card-component'>
             <div className='edituser-card-items'>
                 <label className="user-card-label">FirstName:- </label>
                 <input className='edituser-inputContainer'
@@ -55,7 +35,8 @@ const EditUserCard = (props) => {
                 <input className='edituser-inputContainer'
                     name='lastName'
                     onChange={(e) => handleChange(e)}
-                    value={formData.lastName} />
+                    value={formData.lastName}
+                />
             </div>
             <div className='edituser-card-items'>
                 <label className="user-card-label">Email:- </label>
@@ -82,15 +63,14 @@ const EditUserCard = (props) => {
                 />
             </div>
             <div className="user-card-edit-contianer">
-                <button className="user-card-edit-btn" onClick={handleBack} >
-                    Back
+                <button className="user-card-edit-btn close-btn" onClick={() => onClose(formData)} >
+                    Close
                 </button>
-                <button className="user-card-edit-btn" onClick={handleFormSubmit}>Submit</button>
+                <button className="user-card-edit-btn submit-btn" onClick={() => onSubmit(formData)}>Submit</button>
             </div>
-
-
-        </form>
+        </div>
     )
 }
 
 export default EditUserCard
+

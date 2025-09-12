@@ -8,6 +8,8 @@
     justify-content: flex-start;
     align-items: normal;
     padding: 1rem;
+    width: 350px;
+    height: 300px;
 
 
 
@@ -19,13 +21,14 @@
 
         .user-card-label {
             display: flex;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 900;
             line-height: normal;
             color: black;
             padding: 0.3rem;
             text-align: justify;
             width: 7rem !important;
+            margin-right: 0.6rem;
         }
 
         .edituser-inputContainer {
@@ -37,7 +40,9 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-
+            font-size: 1.1rem;
+            width: auto;
+            height: 120%
         }
     }
 
@@ -45,16 +50,89 @@
         @include display-center(row);
         justify-content: flex-end;
         gap: 1rem;
+        margin-top: 1rem;
 
         .user-card-edit-btn {
-            max-height: 3rem;
+            max-height: 3.5rem;
             max-width: 6rem;
             background-color: black;
             color: white;
             border: none;
-            font-size: 0.9rem;
-            font-weight: 700;
+            font-size: 1rem;
+            font-weight: 900;
             line-height: normal;
         }
+
+        .close-btn {
+            background-color: red;
+        }
+
+        .submit-btn {
+            background-color: green;
+        }
+    }
+
+    @include mobile_devices {
+        // background-color: red;
+        width: 180px;
+        height: 180px;
+        overflow: hidden;
+        overflow-y: auto;
+
+        .edituser-card-items {
+            .user-card-label {
+                font-size: 0.7rem;
+            }
+
+            .edituser-inputContainer {
+                width: 100%;
+                height: 100%
+            }
+        }
+
+        .user-card-edit-contianer {
+            @include display-center(row);
+            justify-content: flex-end;
+            gap: 1rem;
+
+            .user-card-edit-btn {
+                max-height: 2rem;
+                max-width: 4rem;
+                background-color: black;
+                color: white;
+                border: none;
+                font-size: 0.7rem;
+                font-weight: 700;
+                line-height: normal;
+            }
+
+            .close-btn {
+                background-color: red;
+            }
+
+            .submit-btn {
+                background-color: green;
+            }
+        }
+
+        //     .user-card-edit-contianer {
+        //         padding: 0.5rem;
+
+        //         .user-card-edit-btn {
+        //             height: 1.3rem;
+        //             width: 3rem;
+        //             font-size: 0.6rem;
+        //         }
+
+        //     }
+
+        //     .user-card-label {
+        //         font-size: 0.7rem;
+
+        //         & strong {
+        //             font-size: 0.7rem;
+        //         }
+        //     }
+        // }
     }
 }
