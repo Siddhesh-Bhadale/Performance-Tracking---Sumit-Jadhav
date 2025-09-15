@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import '../../../scss/components/editusercard.scss'
 
 
 const EditUserCard = (props) => {
-    const { id, firstName, lastName, gender, email, ip_address, onClose, onSubmit } = props
+    const { onClose, onSubmit } = props
     const [formData, setFormData] = useState({
-        id: id || null,
-        firstname: firstName || null,
-        lastName: lastName || null,
-        gender: gender || null,
-        email: email || null,
-        ip_address: ip_address || null
+        id: props?.id || null,
+        first_name: props?.first_name || null,
+        last_name: props?.last_name || null,
+        gender: props?.gender || null,
+        email: props?.email || null,
+        ip_address: props?.ip_address || null
     })
+
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -24,18 +26,17 @@ const EditUserCard = (props) => {
             <div className='edituser-card-items'>
                 <label className="user-card-label">FirstName:- </label>
                 <input className='edituser-inputContainer'
-                    value={formData.firstname}
-
+                    value={formData.first_name}
                     onChange={(e) => handleChange(e)}
-                    name='firstname'
+                    name='first_name'
                 />
             </div>
             <div className='edituser-card-items'>
                 <label className="user-card-label">LastName:- </label>
                 <input className='edituser-inputContainer'
-                    name='lastName'
+                    name='last_name'
                     onChange={(e) => handleChange(e)}
-                    value={formData.lastName}
+                    value={formData.last_name}
                 />
             </div>
             <div className='edituser-card-items'>
@@ -63,10 +64,10 @@ const EditUserCard = (props) => {
                 />
             </div>
             <div className="user-card-edit-contianer">
-                <button className="user-card-edit-btn close-btn" onClick={() => onClose(formData)} >
+                <button className="edit-user-card-btn close-btn" onClick={() => onClose(formData)} >
                     Close
                 </button>
-                <button className="user-card-edit-btn submit-btn" onClick={() => onSubmit(formData)}>Submit</button>
+                <button className="edit-user-card-btn submit-btn" onClick={() => onSubmit(formData)}>Submit</button>
             </div>
         </div>
     )

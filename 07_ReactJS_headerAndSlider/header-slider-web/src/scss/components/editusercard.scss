@@ -51,8 +51,10 @@
         justify-content: flex-end;
         gap: 1rem;
         margin-top: 1rem;
+        gap: 1rem;
+        justify-content: space-between;
 
-        .user-card-edit-btn {
+        .edit-user-card-btn {
             max-height: 3.5rem;
             max-width: 6rem;
             background-color: black;
@@ -73,7 +75,6 @@
     }
 
     @include mobile_devices {
-        // background-color: red;
         width: 180px;
         height: 180px;
         overflow: hidden;
@@ -95,7 +96,7 @@
             justify-content: flex-end;
             gap: 1rem;
 
-            .user-card-edit-btn {
+            .edit-user-card-btn {
                 max-height: 2rem;
                 max-width: 4rem;
                 background-color: black;
@@ -115,24 +116,5 @@
             }
         }
 
-        //     .user-card-edit-contianer {
-        //         padding: 0.5rem;
-
-        //         .user-card-edit-btn {
-        //             height: 1.3rem;
-        //             width: 3rem;
-        //             font-size: 0.6rem;
-        //         }
-
-        //     }
-
-        //     .user-card-label {
-        //         font-size: 0.7rem;
-
-        //         & strong {
-        //             font-size: 0.7rem;
-        //         }
-        //     }
-        // }
     }
 }

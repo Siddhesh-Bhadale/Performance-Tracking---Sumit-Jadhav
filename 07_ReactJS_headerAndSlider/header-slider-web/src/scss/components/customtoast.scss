@@ -1,0 +1,33 @@
+@use '../abstracts' as *;
+
+[data-component='custom-toast-component'] {
+    .custom-toast-wrapper {
+        background-color: $dark_Primary;
+        border: 1px solid $dark_secondary;
+        @include display-center(row);
+        color: black;
+        max-width: 20%;
+        padding: 1rem;
+        border-radius: 8px;
+        justify-content: space-between;
+        position: fixed;
+        top: 5%;
+        right: 3%;
+        min-width: 20%;
+
+        // border: 2px solid black !important;
+        .message-label {
+            font-size: 1.3rem;
+            color: white;
+            font-weight: 800;
+            color: $dark_titleTxt;
+        }
+
+        .close-model-img {
+            height: 30px;
+            width: 30px;
+        }
+    }
+
+
+}

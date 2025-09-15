@@ -14,13 +14,14 @@
 
     .user-card-edit-contianer {
         display: flex;
-        justify-content: flex-end;
+        width: 100%;
+        justify-content: space-between;
         padding: 1rem;
 
         .user-card-edit-btn {
             max-height: 3rem;
             max-width: 6rem;
-            background-color: rgb(9, 139, 237) !important;
+            background-color: blue;
             color: white;
             border: none;
             font-size: 1rem;
@@ -30,12 +31,17 @@
 
         }
 
-        .inactive {
-            background-color: gray !important;
-        }
 
-        .active {
-            background-color: rgb(9, 139, 237) !important;
+
+        .user-card-edit-btn-delete {
+            max-height: 3rem;
+            max-width: 6rem;
+            background-color: red;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            font-weight: 900;
+            line-height: normal;
         }
     }
 
@@ -68,7 +74,6 @@
 
 
     @include mobile_devices {
-        // background-color: red;
         width: 180px;
         height: 180px;
 
@@ -79,6 +84,16 @@
                 height: 1.3rem;
                 width: 3rem;
                 font-size: 0.6rem;
+            }
+
+            // .user-card-edit-btn-delete {
+            //     height: 1.3rem;
+            //     width: 3rem;
+            //     font-size: 0.6rem;
+            // }
+            .delete-btn {
+                background-color: red;
+
             }
 
         }

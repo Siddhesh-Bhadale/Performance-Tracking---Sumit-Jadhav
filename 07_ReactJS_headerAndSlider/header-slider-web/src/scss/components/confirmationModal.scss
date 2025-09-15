@@ -1,0 +1,118 @@
+@use '../abstracts' as *;
+
+[data-components='confirmation-modal'] {
+
+    .modal-wrapper {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: #1a1a1a76;
+        scroll-snap-type: mandatory;
+
+    }
+
+    .modal-parent-component {
+        background-color: $dark_Primary;
+        color: black;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        border: 1px solid gray;
+        opacity: 1;
+        animation: modal-animation 0.35s ease-in;
+        transform: translate(-50%, -50%);
+        border-radius: 8px;
+        min-height: 20%;
+        min-width: 25%;
+
+
+        .modal-close-container {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+
+            .model-close-label {
+                margin-right: 1rem;
+                margin-top: 0.6rem;
+                height: 30px;
+                width: 30px;
+
+            }
+        }
+
+        .modal-description-container {
+            padding: 1rem;
+
+            @include display-center(column);
+
+            .modal-description-label {
+                font-size: 1.5rem;
+                color: white;
+                font-weight: 700;
+                text-align: center;
+            }
+
+        }
+
+        .modal-btn-container {
+            padding: 1rem;
+            margin-top: 1rem;
+            @include display-center(row);
+            justify-content: space-around;
+
+            .modal-btn {
+                height: 3rem;
+                width: 30%;
+                cursor: pointer;
+                border: none;
+            }
+
+            .yes-btn {
+                background-color: $dark_secondary;
+
+                &:hover {
+                    background-color: $dark_titleTxt;
+
+                }
+            }
+
+            .no-btn {
+                background-color: $dark_secondary;
+
+                &:hover {
+                    background-color: $dark_titleTxt;
+                }
+            }
+        }
+    }
+
+
+    @keyframes modal-animation {
+        0% {
+            opacity: 0;
+            top: 0;
+        }
+
+        25% {
+            opacity: 0.25;
+            top: 10%;
+        }
+
+        50% {
+            opacity: 0.50;
+            top: 20%;
+        }
+
+        75% {
+            opacity: 0.75;
+            top: 35%;
+        }
+
+        100% {
+            opacity: 1;
+            top: 50%;
+        }
+    }
+}

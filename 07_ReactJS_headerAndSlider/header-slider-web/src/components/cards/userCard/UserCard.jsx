@@ -3,61 +3,107 @@
 import { useState } from 'react';
 import '../../../scss/components/usercard.scss'
 import EditUserCard from './EditUserCard';
+import ConfirmationModal from '../../modals/ConfirmationModal';
 
 const UserCard = (props) => {
-    const { id, firstName, lastName, email, gender, ip_address, disabled, onClick, updatedUserData } = props
-    const [isOpen, setIsOpen] = useState(false)
+    const { updatedUserData, deleteUserData } = props
+    const [isOpen, setIsOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
-    const UserDetails = ({ label, value1, value2 = "" }) => (
+
+    const handleButtons = (isDisabled, target, selector, color) => {
+        const buttons = document.querySelectorAll(selector)
+        buttons.forEach((item) => {
+            if (item === target) return
+
+            item.disabled = isDisabled;
+            if (isDisabled) {
+                item.style.backgroundColor = 'gray';
+                item.style.cursor = 'not-allowed';
+            } else {
+                item.style.backgroundColor = color;
+                item.style.cursor = 'pointer';
+            }
+        })
+    }
+
+    const handleDelete = (e) => {
+        setIsModalOpen(true)
+        handleButtons(true, e.target, '.user-card-edit-btn-delete', 'red')
+        handleButtons(true, e.target, '.user-card-edit-btn', 'blue')
+
+    }
+    const handleCancelDelete = (e) => {
+        setIsModalOpen(false)
+        handleButtons(false, null, '.user-card-edit-btn-delete', "red")
+        handleButtons(false, null, '.user-card-edit-btn', 'blue')
+
+    }
+    const handleEditOpen = (e) => {
+        setIsOpen(true);
+        handleButtons(true, e.target, '.user-card-edit-btn', 'blue')
+        handleButtons(true, e.target, '.user-card-edit-btn-delete', "red")
+    }
+    const handleEditClose = () => {
+        setIsOpen(false);
+        handleButtons(false, null, '.user-card-edit-btn', 'blue')
+        handleButtons(false, null, '.user-card-edit-btn-delete', "red")
+    }
+
+
+    const UserDetails = ({ label, value1 = "", value2 = "" }) => (
         <label className="user-card-label">
             <strong>{`${label}:-`}</strong> {` ${value1} ${value2}`}
         </label>
     );
 
-    const handleButtonClick = () => {
-        const active = document.getElementById(id)
-        if (active.id == id) {
-            onClick && onClick(id)
-            setIsOpen(true)
-        }
-    }
     return (
         <>
             {isOpen === true ? (<>
                 <EditUserCard
-                    id={id}
-                    firstName={firstName}
-                    lastName={lastName}
-                    email={email}
-                    gender={gender}
-                    ip_address={ip_address}
-                    onClose={() => {
-                        onClick && onClick(null)
-                        return setIsOpen(false)
-                    }}
+                    {...props}
+                    onClose={handleEditClose}
                     onSubmit={(e) => {
                         updatedUserData && updatedUserData(e)
-                        onClick && onClick(null)
-                        return setIsOpen(false);
+                        return handleEditClose();
                     }}
                 />
             </>) : (<>
-                <div data-component="user-card-component">
+                <div id='user-card-component' data-component="user-card-component">
                     <div className="user-card-edit-contianer">
-                        <button id={id} className={`user-card-edit-btn ${disabled ? 'inactive' : 'active'}`} disabled={disabled} onClick={handleButtonClick}>
+                        <button id={props.id}
+                            className='user-card-edit-btn'
+                            onClick={handleEditOpen}
+                        >
                             Edit
+                        </button>
+                        <button id={props.id}
+                            className='user-card-edit-btn-delete'
+                            onClick={handleDelete}
+                        >
+                            Delete
                         </button>
                     </div>
                     <div className='user-card-data-contianer'>
-                        <UserDetails label="FullName" value1={firstName} value2={lastName} />
-                        <UserDetails label="Email" value1={email} />
-                        <UserDetails label="Gender" value1={gender} />
-                        <UserDetails label="IP" value1={ip_address} />
+                        <UserDetails label="FullName" value1={props?.first_name} value2={props?.last_name} />
+                        <UserDetails label="Email" value1={props?.email} />
+                        <UserDetails label="Gender" value1={props?.gender} />
+                        <UserDetails label="IP" value1={props?.ip_address} />
                     </div>
 
                 </div >
             </>)}
+            {isModalOpen &&
+                <ConfirmationModal
+                    description={`Do you really want to delete ${props.first_name} ?...`}
+                    postion={'middle'}
+                    onSubmit={() => {
+                        deleteUserData && deleteUserData(true)
+                        return handleCancelDelete()
 
+                    }}
+                    onCancel={handleCancelDelete} />
+            }
         </>
 
     );
