@@ -1,0 +1,72 @@
+@use '../../abstracts' as *;
+
+[data-component='animal-card-layout'] {
+    padding: 1rem;
+    margin: 2rem;
+    background-color: white;
+
+    .animal-card-selections {
+        @include display-center(row);
+        gap: 1rem;
+        width: 100%;
+        padding: 1rem;
+        overflow: hidden;
+        overflow-x: auto;
+        scroll-snap-align: start;
+
+    }
+
+    .card-button {
+        width: 100px;
+        height: 40px;
+        font-size: 1rem;
+        background-color: transparent;
+        color: black;
+        border: 2px solid gray;
+    }
+
+    .active-card-button {
+        background-color: $dark_titleTxt;
+        color: $dark_white;
+    }
+
+    .animal-show-card-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.4rem;
+        padding: 1rem;
+
+        .card-container {
+            background-color: $dark_secondary;
+            @include display-center(row);
+            height: 300px;
+            width: 100%;
+            border-radius: 12px;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: normal;
+        }
+    }
+
+    @include mobile_devices {
+        .animal-show-card-container {
+            overflow: hidden;
+            gap: 0.4rem;
+
+            .card-container {
+                height: 100px;
+            }
+        }
+    }
+
+    @include tablet_devices {
+        .animal-show-card-container {
+            overflow: hidden;
+            gap: 0.6rem;
+
+            .card-container {
+                height: 200px;
+            }
+        }
+    }
+}

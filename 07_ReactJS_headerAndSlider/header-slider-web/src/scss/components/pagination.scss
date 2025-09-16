@@ -1,0 +1,48 @@
+@use '../abstracts' as *;
+
+[data-component='pagination-component'] {
+    @include display-center(row);
+    // justify-content: space-between;
+    padding: 1rem;
+    overflow: hidden;
+
+    .pagination-left-icon-container {
+        padding: 0.4rem;
+    }
+
+    .pagination-right-icon-container {
+        padding: 0.4rem;
+    }
+
+    .pagination-selection-container {
+        @include display-center(row);
+        gap: 2rem;
+        padding: 1rem;
+
+        .pagination-item {
+            @include display-center(row);
+            height: auto;
+            width: 40px;
+            background-color: $dark_Primary;
+            border-radius: 6px;
+            padding: 0.5rem;
+            color: $dark_titleTxt;
+        }
+
+        .active-index {
+            width: 50px;
+            height: 50px;
+            padding: 0.5rem;
+            border-radius: 30px;
+            background-color: $dark_titleTxt;
+            color: white;
+        }
+    }
+
+    .pagination-icon {
+        height: 30px;
+        width: 30px;
+        object-fit: fill;
+    }
+
+}

@@ -136,4 +136,28 @@ export const userData = [{
 }
 ]
 
+export const animalData = [
+    { name: 'Eagle', class: 'Birds' },
+    { name: 'Penguin', class: 'Birds' },
+    { name: 'Parrot', class: 'Birds' },
+    { name: 'Crow', class: 'Birds' },
+    { name: 'Hen', class: 'Birds' },
+    { name: 'Peacock', class: 'Birds' },
+    { name: 'Lion', class: 'Mammals' },
+    { name: 'Tiger', class: 'Mammals' },
+    { name: 'Elephant', class: 'Mammals' },
+    { name: 'Cat', class: 'Mammals' },
+    { name: 'Dog', class: 'Mammals' },
+    { name: 'Cow', class: 'Mammals' },
+    { name: 'Cobra', class: 'Reptiles' },
+    { name: 'Lizard', class: 'Reptiles' },
+    { name: 'Tortoise', class: 'Reptiles' },
+    { name: 'MonitorLizard', class: 'Reptiles' },
+    { name: 'Salmon', class: 'Fish' },
+    { name: 'Shark', class: 'Fish' },
+    { name: 'Trout', class: 'Fish' },
+    { name: 'Tuna', class: 'Fish' },
+    { name: 'Dolphine', class: 'Fish' },
+];
+
 export const fallbackImage = 'https://learn-attachment.microsoft.com/api/attachments/233401-image.png?platform=QnA'

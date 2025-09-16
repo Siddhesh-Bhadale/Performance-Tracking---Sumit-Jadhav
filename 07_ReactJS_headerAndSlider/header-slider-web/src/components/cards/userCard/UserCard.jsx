@@ -15,7 +15,6 @@ const UserCard = (props) => {
         const buttons = document.querySelectorAll(selector)
         buttons.forEach((item) => {
             if (item === target) return
-
             item.disabled = isDisabled;
             if (isDisabled) {
                 item.style.backgroundColor = 'gray';
