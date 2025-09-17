@@ -16,8 +16,10 @@
 
     .pagination-selection-container {
         @include display-center(row);
-        gap: 2rem;
         padding: 1rem;
+        flex-wrap: wrap;
+        width: 50%;
+        justify-content: space-between;
 
         .pagination-item {
             @include display-center(row);
@@ -43,6 +45,50 @@
         height: 30px;
         width: 30px;
         object-fit: fill;
+        cursor: pointer;
+    }
+
+    @include mobile_devices {
+        .pagination-selection-container {
+            width: 100%;
+
+            .pagination-item {
+                width: 30px;
+                font-size: 0.7rem;
+            }
+
+            .active-index {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        .pagination-icon {
+            height: 20px;
+            width: 20px;
+        }
+    }
+
+    @include tablet_devices {
+        .pagination-selection-container {
+            width: 80%;
+
+            .pagination-item {
+                width: 35px;
+                font-size: 1rem;
+            }
+
+            .active-index {
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        .pagination-icon {
+            height: 20px;
+            width: 20px;
+        }
+
     }
 
 }
