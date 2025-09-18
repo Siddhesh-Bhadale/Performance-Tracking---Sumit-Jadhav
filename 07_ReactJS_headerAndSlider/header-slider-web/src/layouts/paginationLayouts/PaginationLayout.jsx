@@ -21,10 +21,6 @@ const PaginationLayout = () => {
         }
     }
 
-    function handleDataFromChild(data) {
-        setPage(data);
-    }
-
     useEffect(() => {
         handleApiCall()
     }, [page])
@@ -49,7 +45,7 @@ const PaginationLayout = () => {
             </div>
             <div>
                 {apiError === true ? (<></>) : (
-                    <Pagination totalElement={12} currentPage={handleDataFromChild} />
+                    <Pagination totalElement={totalPages} pageCount={3} currentPage={setPage} currentSelected={page} />
                 )}
             </div>
         </div >

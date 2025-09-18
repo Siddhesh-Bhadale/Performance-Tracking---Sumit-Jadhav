@@ -1,0 +1,62 @@
+@use '../abstracts' as *;
+
+[ data-component='anime-card-component'] {
+    width: 90%;
+    height: 50vh;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    border: 1px solid rgba(128, 128, 128, 0.177);
+    position: relative;
+    background-color: #1f1f1f;
+    cursor: pointer;
+
+    .anime-card-poster {
+        width: 100%;
+        height: 75%;
+    }
+
+    .anime-card-poster:hover {
+        transform: scale(1.1);
+    }
+
+    .anime-card-overlay {
+  
+        top: 0;
+        background-color: red;
+        position: absolute;
+    }
+
+
+
+    .anime-card-stars-container {
+        padding: 1rem;
+        overflow: hidden;
+        @include display-center(column);
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 0.5rem;
+
+        .anime-card-rating-star {
+            color: $dark_Primary;
+            width: 40px;
+            height: 40px;
+            height: 100%;
+            display: flex;
+        }
+
+        .anime-card-title {
+            font-size: 1.1rem;
+            font-weight: 300;
+            display: flex;
+            color: $dark_grey;
+            height: 100%;
+            width: 1005;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 95%;
+            overflow: hidden;
+
+        }
+    }
+}

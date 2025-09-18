@@ -1,0 +1,84 @@
+@use '../abstracts' as *;
+
+[data-component='anime-details-page'] {
+
+    .anime-banner-component-container {
+        width: 100%;
+        height: 80vh;
+        overflow: hidden;
+        position: relative;
+
+        .anime-banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+
+
+        }
+
+        .anime-banner-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background-color: #1a191c67;
+
+            .anime-banner-data-contianer {
+                // position: absolute;
+                height: 100%;
+                z-index: 1;
+
+                @include display-center('row');
+                gap: 1rem;
+
+                .anime-banner-poster-img {
+                    height: 500px;
+                    width: 400px;
+
+                }
+
+                .anime-banner-poster-data {
+                    padding: 1rem;
+                    width: 60%;
+                    height: 90%;
+                    @include display-center(column);
+                    // justify-content: flex-start
+                    align-items: flex-start;
+
+                    .anime-banner-title {
+                        font-size: 4rem;
+                        font-weight: 700;
+                        color: #9c9c9c;
+                    }
+
+                    .anime-banner-description {
+                        font-size: 1rem;
+                        font-weight: 600;
+                        color: $dark_white;
+                    }
+
+                    .anime-banner-animedetails {
+                        @include display-center(row);
+                        width: 100%;
+
+                        .anime-banner-detail-container {
+                            width: 100%;
+                            // gap: 1rem !important;
+
+                            .anime-detail-label {
+                                height: 100%;
+                            }
+
+                        }
+                    }
+
+                }
+            }
+        }
+
+
+    }
+
+}
