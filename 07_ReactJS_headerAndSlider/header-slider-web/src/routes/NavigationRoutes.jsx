@@ -4,7 +4,7 @@ import HomePage from '../pages/HomePage';
 import AnimeDetailsPage from '../pages/animeDetails/AnimeDetailsPage';
 const router = createBrowserRouter([
     { path: '/', element: <HomePage /> },
-    { path: '/anime-details/:anime-id', element: <AnimeDetailsPage /> },
+    { path: '/anime-details/:id', element: <AnimeDetailsPage /> },
     {
         path: '*', element: <div>
             <h1>404 Page Not Found</h1>

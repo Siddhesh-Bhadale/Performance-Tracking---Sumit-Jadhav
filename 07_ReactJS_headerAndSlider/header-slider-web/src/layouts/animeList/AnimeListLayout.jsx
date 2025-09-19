@@ -11,17 +11,23 @@ const AnimeListLayout = () => {
     const [apiError, setError] = useState(false)
     const navigate = useNavigate()
 
+
     const handleApiCall = async () => {
-        try {
-            const response = await fetch(`https://api.jikan.moe/v4/top/anime?page=${page}`);
-            const result = await response.json()
-            setData(result?.data)
-            setTotalPages(result?.pagination?.last_visible_page)
-        } catch (error) {
-            setError(true)
-            console.error('Error:-', error)
-        }
+        setTimeout(async () => {
+            try {
+                const response = await fetch(`https://api.jikan.moe/v4/top/anime?page=${page}`);
+                const result = await response.json()
+                setData(result?.data)
+                setTotalPages(result?.pagination?.last_visible_page)
+            } catch (error) {
+                setError(true)
+                console.error('Error:-', error)
+            }
+        }, 1000)
+
     }
+
+
 
     const handleCardNavigation = (item) => {
         navigate(`/anime-details/${item.mal_id}`, { state: item });
@@ -38,6 +44,7 @@ const AnimeListLayout = () => {
                         animeTitle={item?.title}
                         poster={item?.images?.jpg?.image_url}
                         onClick={() => handleCardNavigation(item)}
+                        rating={item?.score}
                     />
                 ))
                 }

@@ -1,0 +1,23 @@
+[data-component='producer-list-layout'] {
+    background-color: #151f2e;
+    height: 500px;
+    min-width: 500px;
+    margin-left: 2rem;
+    overflow: hidden;
+    overflow-y: auto;
+
+    .producer-list-container {
+        padding: 1rem;
+        justify-content: flex-end;
+
+        .producer-label {
+            list-style-type: none;
+            font-weight: 600;
+            font-size: 2rem;
+
+            & span {
+                margin-right: 0.6rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,54 @@
+@use '../abstracts' as *;
+
+[data-components='episode-layout'] {
+    @include display-center(row);
+    height: 60vh;
+    padding: 1rem;
+    gap: 1rem;
+
+    .episode-right-container {
+        width: 70%;
+        height: 100%;
+        flex-wrap: wrap;
+        background-color: #151f2e;
+        padding: 0.7rem;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    .episode-left-container {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+
+        .episode-background-img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+
+        .watch-now-label {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.62);
+            padding: 0.7rem;
+            font-weight: 900;
+            font-size: 2rem;
+            color: white;
+            // width: 100%;
+        }
+
+        .epsiode-anime-title-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.66);
+            padding: 0.7rem;
+            font-weight: 900;
+            font-size: 2rem;
+            color: white;
+        }
+    }
+}

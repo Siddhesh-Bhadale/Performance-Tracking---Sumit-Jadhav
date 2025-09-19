@@ -1,0 +1,64 @@
+@use '../abstracts' as *;
+
+[data-component='episode-card-component'] {
+    height: 30%;
+    @include display-center(row);
+    margin-bottom: 0.7rem;
+    // padding: 0.7rem; 
+    gap: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.354);
+    border-radius: 12px;
+    cursor: pointer;
+
+    .episode-card-left-container {
+        width: 40%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+
+        .episode-card-image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .epsiode-no-label {
+            position: absolute;
+            background-color: rgba(53, 52, 52, 0.665);
+            color: white;
+            font-size: 1rem;
+            bottom: 10px;
+            right: 10px;
+            padding: 0.4rem;
+        }
+    }
+
+    .episode-card-right-container {
+        width: 60%;
+        height: 100%;
+        overflow: hidden;
+        padding: 0.7rem;
+        gap: 0.7rem;
+
+        .episode-card-title {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: normal;
+            margin-bottom: 0.6rem;
+            text-transform: capitalize;
+        }
+
+        .epsiode-card-description {
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgb(200, 200, 200);
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            overflow: hidden;
+        }
+    }
+}

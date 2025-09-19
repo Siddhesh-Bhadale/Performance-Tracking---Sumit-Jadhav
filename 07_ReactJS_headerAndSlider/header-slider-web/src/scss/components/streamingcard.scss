@@ -1,0 +1,38 @@
+@use '../abstracts' as *;
+
+[data-component='streaming-card-component'] {
+    height: 250px;
+    width: 260px;
+    padding: 1rem;
+    @include display-center(column);
+    justify-content: space-between;
+
+    .streamingcard-image-contianer {
+        width: 150px;
+        height: 150px;
+        background: #3b1621;
+        border: 3px solidred;
+        border-radius: 50%;
+        overflow: hidden;
+
+        @include display-center(row);
+
+        .streamplatform-img {
+            height: 80%;
+            width: 80%;
+            object-fit: cover;
+        }
+    }
+    .streamingcard-label-container {
+        background-color: #151f2e;
+        height: 20%;
+        width: 80%;
+        @include display-center(row);
+
+        & label {
+            font-weight: 700;
+            color: white;
+            font-size: 1.2rem;
+        }
+    }
+}

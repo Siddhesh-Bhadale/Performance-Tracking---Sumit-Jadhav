@@ -1,0 +1,15 @@
+@use '../abstracts' as *;
+
+[data-component='streaming-layout'] {
+    width: 100%;
+    height: 500px;
+
+    .streaming-platform-container {
+        @include display-center(row);
+        overflow: hidden;
+        overflow-x: auto;
+        justify-content: flex-start,
+
+
+    }
+}

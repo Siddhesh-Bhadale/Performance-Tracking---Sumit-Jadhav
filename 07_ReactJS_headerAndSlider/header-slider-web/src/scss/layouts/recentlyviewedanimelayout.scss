@@ -1,0 +1,6 @@
+[data-component='recentlyviewed-anime-layout'] {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    place-items: center;
+}
