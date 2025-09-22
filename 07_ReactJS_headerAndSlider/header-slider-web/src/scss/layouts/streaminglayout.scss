@@ -2,14 +2,15 @@
 
 [data-component='streaming-layout'] {
     width: 100%;
-    height: 500px;
+    height: 50%;
 
     .streaming-platform-container {
         @include display-center(row);
         overflow: hidden;
-        overflow-x: auto;
-        justify-content: flex-start,
-
-
+        // overflow-x: auto;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        // width: 70%;
+        // place-self: center;
     }
 }

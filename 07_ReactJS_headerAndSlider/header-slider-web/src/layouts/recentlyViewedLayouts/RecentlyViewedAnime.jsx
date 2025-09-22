@@ -3,7 +3,8 @@ import '../../scss/layouts/recentlyviewedanimelayout.scss'
 import AnimeCard from '../../components/cards/animeCard/AnimeCard';
 
 const RecentlyViewedAnime = () => {
-    let items = Array.from(Array(25), (item, idx) => idx + 1)
+    let items = Array.from(Array(5), (item, idx) => idx + 1);
+
     return (
         <div data-component='recentlyviewed-anime-layout'>
             {items?.map((items, idx) => (

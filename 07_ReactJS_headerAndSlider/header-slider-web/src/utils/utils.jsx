@@ -79,3 +79,31 @@ export const getPaginationPages = (current, total, showPages) => {
     }
     return pages
 }
+
+
+//---------- Recently visited item data --------------//
+
+
+
+export function saveRecentlyVisitedAnime(item) {
+    let visited = JSON.parse(localStorage.getItem('recentlyVisited')) || [];
+    console.log("Items:--->", item)
+    const exists = visited?.some((exitedItem) => exitedItem.mal_id === item.mal_id);
+
+
+    if (!exists) {
+        visited.push(item);
+    } else {
+        // remove old & push latest at the end
+        visited = visited.filter((v) => v.mal_id !== item.mal_id);
+        visited.push(item);
+    }
+
+
+    localStorage.setItem("recentlyVisited", JSON.stringify(visited));
+}
+
+
+export function getRecentlyViewed() {
+    return JSON.parse(localStorage.getItem('recentlyVisited'))
+}

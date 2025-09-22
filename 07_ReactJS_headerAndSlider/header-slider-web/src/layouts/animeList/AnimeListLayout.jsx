@@ -3,18 +3,21 @@ import '../../scss/layouts/animeListLayout.scss'
 import AnimeCard from '../../components/cards/animeCard/AnimeCard'
 import Pagination from '../../components/pagination/Pagination';
 import { useNavigate } from 'react-router-dom';
+import AnimeCardLoading from '../../loadingComponents/AnimeCardLoading';
 
 const AnimeListLayout = () => {
     const [data, setData] = useState();
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState()
-    const [apiError, setError] = useState(false)
+    const [apiError, setError] = useState(false);
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
 
     const handleApiCall = async () => {
         setTimeout(async () => {
             try {
+                setLoading(true)
                 const response = await fetch(`https://api.jikan.moe/v4/top/anime?page=${page}`);
                 const result = await response.json()
                 setData(result?.data)
@@ -22,8 +25,10 @@ const AnimeListLayout = () => {
             } catch (error) {
                 setError(true)
                 console.error('Error:-', error)
+            } finally {
+                setLoading(false)
             }
-        }, 1000)
+        }, 333)
 
     }
 
@@ -37,17 +42,22 @@ const AnimeListLayout = () => {
     }, [page])
     return (
         <div data-component='anime-list-layout'>
-            {apiError && <h2>Some thing went</h2>}
+            {apiError && <h2 style={{ placeSelf: 'center' }}>Some thing went</h2>}
             <div className='anime-list-card-container'>
-                {data?.map((item, idx) => (
-                    <AnimeCard key={idx}
-                        animeTitle={item?.title}
-                        poster={item?.images?.jpg?.image_url}
-                        onClick={() => handleCardNavigation(item)}
-                        rating={item?.score}
-                    />
-                ))
-                }
+                {loading ? (<><AnimeCardLoading />
+                </>) : (<>
+                    {data?.map((item, idx) => (
+                        <AnimeCard 
+                        key={idx}
+                            animeTitle={item?.title}
+                            poster={item?.images?.jpg?.image_url}
+                            onClick={() => handleCardNavigation(item)}
+                            rating={item?.score}
+                        />
+                    ))
+                    }
+                </>)}
+
             </div>
 
             {apiError === true ? (

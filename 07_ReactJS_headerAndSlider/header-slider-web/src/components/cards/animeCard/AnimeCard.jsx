@@ -37,7 +37,8 @@ const AnimeCard = (props) => {
           {/* {ratingstars?.map((item, idx) => {
             return
           })} */}
-          ⭐⭐⭐⭐⭐
+          ⭐⭐⭐⭐⭐ 
+          {/* ☆☆☆☆☆ */}
         </label>
       </div>
     </div>
