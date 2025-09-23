@@ -54,8 +54,10 @@ const DropDownComponent = (props) => {
             // Logic for single selection
             setSelectedItem(selectedItem === item?.value ? placeholder : item.value);
             setSearchValue(selectedItem === item?.value ? "" : searchValue);
-            result && result(selectedItem === item?.value ? {} : item);
+            result && result(selectedItem === item?.value ? null : item);
         }
+        setIsOpen(false)
+
     };
 
 

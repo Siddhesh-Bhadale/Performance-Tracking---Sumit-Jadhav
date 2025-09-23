@@ -1,14 +1,21 @@
 @use '../abstracts' as *;
 
 [data-component='anime-list-layout'] {
+    // place-items: center;
+    @include display-center(column);
 
     .anime-list-card-container {
         padding: 1rem;
+        height: auto;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(18%, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        width: 90%;
         place-items: center;
-        width: 80%;
-        margin: 0 auto;
+    }
+
+    .pagination-cotainer {
+        width: 100%;
     }
 
 }

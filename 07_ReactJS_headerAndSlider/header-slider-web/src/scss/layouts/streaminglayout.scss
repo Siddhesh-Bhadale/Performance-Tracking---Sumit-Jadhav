@@ -1,16 +1,15 @@
 @use '../abstracts' as *;
 
 [data-component='streaming-layout'] {
-    width: 100%;
+    width: 70%;
     height: 50%;
+    min-height: 300px;
+    overflow: hidden;
+    padding: -1rem;
 
     .streaming-platform-container {
-        @include display-center(row);
-        overflow: hidden;
-        // overflow-x: auto;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        // width: 70%;
-        // place-self: center;
+        display: flex;
+        overflow-x: auto;
+        scrollbar-color: $dark_titleTxt $dark_Primary;
     }
 }

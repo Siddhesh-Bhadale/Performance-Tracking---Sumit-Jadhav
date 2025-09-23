@@ -18,11 +18,12 @@
         @include display-center(row);
 
         .streamplatform-img {
-            height: 80%;
-            width: 80%;
-            object-fit: cover;
+            height: 50%;
+            width: 50%;
+            object-fit: contain;
         }
     }
+
     .streamingcard-label-container {
         background-color: #151f2e;
         height: 20%;

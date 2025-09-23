@@ -14,6 +14,20 @@
     line-height: 2rem;
 }
 
+@mixin ellipseText ($line) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@mixin singleLineTxtellipse() {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 // mixins for media query
 
 @mixin mobile_devices {

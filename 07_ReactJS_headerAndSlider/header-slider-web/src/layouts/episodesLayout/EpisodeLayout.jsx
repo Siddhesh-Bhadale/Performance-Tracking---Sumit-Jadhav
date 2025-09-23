@@ -2,15 +2,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import "../../scss/layouts/episodelayouts.scss"
 import EpisodeCard from '../../components/cards/episodeCard/EpisodeCard'
 import { useParams } from 'react-router-dom'
-import apiThrottleHook from '../../hooks/apiThrottle/apiThrottleHook'
-let array = []
+import { fallbackImage } from '../../utils/StaticData'
 const EpisodeLayout = (props) => {
     const { backgroundImg, title } = props
     const [fullEpisodeData, setFullEpisodeData] = useState();
     const [episodeImage, setEpisodeImage] = useState();
-    const [synopsisData, setsynopsisData] = useState(1);
-    const [episodeId, setEpisodeId] = useState([])
-    let extractedIds;
+    const [synopsisData, setsynopsisData] = useState([]);
+    const [fullAPIData, setFullAPIData] = useState([])
     const param = useParams();
 
     const getFullData = async () => {
@@ -18,13 +16,10 @@ const EpisodeLayout = (props) => {
             const response = await fetch(`https://api.jikan.moe/v4/anime/${param?.id}/episodes`)
             const result = await response.json();
             setFullEpisodeData(result?.data)
-            const extractedIds = result?.data.map(item => item.mal_id);
-            console.log("extractedIds---->", extractedIds)
-            setEpisodeId(oldArray => [...oldArray, ...extractedIds])
-            // setEpisodeId([...extractedIds])
-            // setEpisodeId(episodeId)
-            console.log("episode IDS", episodeId)
-
+            // if (result?.data?.length) {
+            //     // call our synopsis api instantly here
+            //     getSynopsisData(result?.data)
+            // }
 
         } catch (error) {
             console.log('error while fetching an api', error)
@@ -41,51 +36,102 @@ const EpisodeLayout = (props) => {
 
         }
     }
-    const getSynopsisData = async () => {
-        console.log('extractedIds--->', episodeId)
+    const getSynopsisData = async (data) => {
+        data?.forEach((element, idx) => {
+            setTimeout(async () => {
+                try {
+                    const response = await fetch(`https://api.jikan.moe/v4/anime/${param?.id}/episodes/${element?.mal_id}`);
+                    const result = await response.json();
+                    const synopsisDataObj = {
+                        mal_id: element?.mal_id,
+                        synopsis: result?.data?.synopsis || 'No synopsis available'
+                    }
+                    setsynopsisData(
+                        (prev) => [...prev.filter((item) => item.mal_id !== element.mal_id), synopsisDataObj]
+                    )
+                } catch (error) {
+                    console.log(`Error while fetching an Synopsis data`, error)
+                }
+
+            }, 600 * idx);
+        });
     }
-    // const getSynopsisData = async () => {
-    //     try {
-    //         const response = await fetch(`https://api.jikan.moe/v4/anime/${param?.id}/episodes/${episodeNo}`);
-    //         const result = await response.json();
-    //         setsynopsisData((prev) => [...prev, result?.data]);
-    //     } catch (error) {
-    //         console.log('Error while fetching the API:', error);
-    //     }
-    // };
 
-    // const getThrottleSynopsis = apiThrottleHook({ func: getSynopsisData, delay: 500 });
 
+    const getVideoAndsynopsisData = async () => {
+        try {
+            const response = await fetch(`https://api.jikan.moe/v4/anime/${param?.id}/videos`)
+            const result = await response.json()
+            // setEpisodeImage(result?.data)
+            result?.data?.episodes?.forEach((element, idx) => {
+                setTimeout(async () => {
+                    try {
+                        const response = await fetch(`https://api.jikan.moe/v4/anime/${param?.id}/episodes/${element?.mal_id}`);
+                        const result = await response.json();
+                        const episodeCardData = {
+                            mal_id: element?.mal_id,
+                            title: element?.title,
+                            image: element?.images?.jpg?.image_url,
+                            synopsis: result?.data?.synopsis || 'No synopsis available'
+                        }
+                        setFullAPIData(
+                            (prev) => [...prev.filter((item) => item.mal_id !== element.mal_id), episodeCardData]
+                        )
+                    } catch (error) {
+                        console.log(`Error while fetching an Synopsis data`, error)
+                    }
+                }, 600 * idx)
+            })
+
+        } catch (error) {
+            console.log('error while fetching an api', error)
+
+        }
+    }
 
     useEffect(() => {
         getFullData()
-        getEpisodeImage()
-        getSynopsisData()
+        getEpisodeImage();
+        // getVideoAndsynopsisData()
     }, [])
 
     return (
         <div data-components='episode-layout'>
 
             <div className='episode-left-container'>
-                <img className='episode-background-img' src={backgroundImg || 'https://4kwallpapers.com/images/wallpapers/one-piece-character-5120x2880-15328.jpeg'} />
+                <img className='episode-background-img' src={backgroundImg || fallbackImage} />
                 <label className='watch-now-label'>Watch Now</label>
                 <label className='epsiode-anime-title-label'>{title}</label>
             </div>
             <div className='episode-right-container'>
-                {fullEpisodeData?.map((item, idx) => {
-                    // functionQueueRef.current.push(item.mal_id)
-                    return (
-                        <EpisodeCard key={idx}
-                            episodeNo={item.mal_id}
-                            title={item?.title}
-                            episodeDescription={""}
-                            episodeImage={episodeImage}
-                            synopsis={'synopsisData'}
-                        // functionCall={() => functionQueue.push(item)}
-                        />
-                    )
+                {!fullEpisodeData || fullEpisodeData?.length === 0 ? (<label className='No-episode-data-label'>
+                    No Episode Data
+                </label>) : (<>
+                    {fullEpisodeData?.map((item, idx) => {
+                        // functionQueueRef.current.push(item.mal_id)
+                        return (
+                            <EpisodeCard key={idx}
+                                episodeNo={item.mal_id}
+                                title={item?.title}
+                                episodeImage={episodeImage}
+                                synopsisData={synopsisData}
+                            />
+                        )
 
-                })}
+                    })}
+                    {/* {fullAPIData?.map((item, idx) => {
+                        return (
+                            <EpisodeCard key={idx}
+                                episodeNo={item.mal_id}
+                                title={item?.title}
+                                episodeImg={item?.image}
+                                synopsisData={item?.synopsis}
+                            />
+                        )
+
+                    })} */}
+                </>)}
+
             </div>
         </div>
     )

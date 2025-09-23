@@ -1,6 +1,6 @@
 import '../../scss/pages/animedetailspage.scss'
 import HeaderComponent from '../../components/header/HeaderComponent'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import AnimeBannerLayout from '../../layouts/animeBannerLayout/AnimeBannerLayout'
 import RecentlyViewedAnime from '../../layouts/recentlyViewedLayouts/RecentlyViewedAnime'
 import EpisodeLayout from '../../layouts/episodesLayout/EpisodeLayout'

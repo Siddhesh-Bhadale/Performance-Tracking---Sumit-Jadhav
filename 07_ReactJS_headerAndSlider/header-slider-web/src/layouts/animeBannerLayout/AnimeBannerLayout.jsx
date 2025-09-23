@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
 import "../../scss/layouts/animebannerlayout.scss";
 import { useParams } from 'react-router-dom';
+import { fallbackImage } from '../../utils/StaticData';
 
 // DetailItem component to render individual label/value pairs
 const DetailItem = ({ label, value, isGenres = false }) => {
@@ -52,7 +52,7 @@ const AnimeBannerLayout = (props) => {
     return (
         <div data-component='anime-banner-component'>
             <img
-                src={data?.trailer?.images?.maximum_image_url || 'https://4kwallpapers.com/images/wallpapers/one-piece-character-5120x2880-15328.jpeg'}
+                src={data?.trailer?.images?.maximum_image_url || fallbackImage}
                 alt="Background"
                 className='banner-background-img'
             />

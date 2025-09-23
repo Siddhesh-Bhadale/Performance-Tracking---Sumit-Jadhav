@@ -1,3 +1,8 @@
+import netflix from '../assets/images/Netflix.png'
+import crunchyroll from '../assets/images/crunchyroll.png';
+import bahamut from '../assets/images/Bahamut.png';
+import bilibili from '../assets/images/bilibili.png';
+import aniplus from '../assets/images/aniplus-seeklogo.svg'
 export const slideImagesArr = [
     "https://cdn.lazyshop.com/files/d2c4f2c8-ada5-455a-86be-728796b838ee/other/192115ca73ec8c98c62e3cbc95b96d32.jpg",
     "https://cdn.pixabay.com/photo/2024/06/01/01/33/anime-8801333_1280.png",
@@ -203,3 +208,13 @@ export const animalData = [
 ];
 
 export const fallbackImage = 'https://learn-attachment.microsoft.com/api/attachments/233401-image.png?platform=QnA'
+
+export const smallFallbackImage = 'https://media.istockphoto.com/id/1962839891/vector/no-photo-thumbnail-graphic-element-no-found-or-available-image-in-the-gallery-or-album-flat.jpg?s=612x612&w=0&k=20&c=EeaZpA-LXYs0lQEI_bg-q3qUpUOADKFXUFES3clBZv8='
+
+export const streamDataImages = [
+    { name: "Netflix", path: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_7c5ntMMlh2vFkMrDUU6bHBj5WdV3h1gH9w&s' },
+    { name: "crunchyroll", path: crunchyroll },
+    { name: "Bahamut Anime Crazy", path: bahamut },
+    { name: "Bilibili Global", path: bilibili },
+    { name: "Aniplus TV", path: aniplus },
+]
