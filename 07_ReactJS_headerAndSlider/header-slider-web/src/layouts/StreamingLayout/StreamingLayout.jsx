@@ -6,7 +6,7 @@ import { streamDataImages } from '../../utils/StaticData'
 
 
 const StreamingLayout = ({ data }) => {
-    console.log(data)
+    // console.log(data)
     return (
         <div data-component='streaming-layout'>
             <SectionTitles title={'Streaming'} />

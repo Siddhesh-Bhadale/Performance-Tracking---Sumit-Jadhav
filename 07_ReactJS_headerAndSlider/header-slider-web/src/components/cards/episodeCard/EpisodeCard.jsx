@@ -1,41 +1,84 @@
 
 import '../../../scss/components/episodecard.scss';
-import { useParams } from 'react-router-dom';
+import { data, useParams } from 'react-router-dom';
 import { smallFallbackImage } from '../../../utils/StaticData';
-import apiThrottleHook from '../../../hooks/apiThrottle/apiThrottleHook';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { getEpisodeSynopsisData } from '../../../services/services';
 
-const EpisodeCard = ({ episodeNo, title, episodeImage, episodeImg, synopsisData, onClick }) => {
+const EpisodeCard = (props) => {
+    const { selectedEpisode, setSelectedEpisode } = props;
     const params = useParams();
-    const [data, setData] = useState()
-    const matchedEpisode = episodeImage?.episodes?.find((ep) => ep.mal_id === episodeNo);
-    // const synopsis = synopsisData?.find((syno) => syno.mal_id === episodeNo)
+    const episodeCardRef = useRef(null);
+    const lastApiCallTime = useRef(0);
+    const [synopsis, setSynopsis] = useState(null)
+    const [isLoading, setIsLoading] = useState();
+    const apiCallRateRef = useRef(0)
+    // const isApliAlredyCalled = useRef(false)
 
-    const getSynopsisData = async () => {
+    const fetchSynopsisData = async (id, no) => {
+        apiCallRateRef.current += 1;
         try {
-            const response = await fetch(`https://api.jikan.moe/v4/anime/${params?.id}/episodes/${episodeNo}`);
-            const result = await response.json();
-            setData(result?.data)
+            setIsLoading(true)
+            const response = await getEpisodeSynopsisData(id, no)
+            setSynopsis(response?.data)
+            // isApliAlredyCalled.current = true
         } catch (error) {
-            console.log(`Error while fetching an Synopsis data`, error)
+            console.log('Error while Fetching a Episode synopsis data', error)
         }
     }
-    // const synopsisDatas = apiThrottleHook(getSynopsisData(), 1000, episodeNo)
-    // // console.log(data)
-    // useEffect(() => {
-    //     // synopsisDatas
-    // }, [episodeNo])
+
+    const throttleApiCall = (id, no) => {
+        const currentTime = Date.now();
+        const timeDifference = currentTime - lastApiCallTime.current;
+        // if (timeDifference >= 500 && isApliAlredyCalled.current === false) {
+        //     lastApiCallTime.current = currentTime;
+        //     fetchSynopsisData(id, no)
+        // }
+        if (timeDifference >= 500) {
+            lastApiCallTime.current = currentTime;
+            fetchSynopsisData(id, no)
+        }
+    };
+
+    useEffect(() => {
+        if (!episodeCardRef.current) return;
+        const callback = (enteries) => {
+            if (enteries[0].isIntersecting && !isLoading && !synopsis) {
+                throttleApiCall(params?.id, props?.mal_id);
+            }
+        }
+        const options = {
+            root: document.querySelector(".episode-right-container"),
+            threshold: 1
+        }
+        const observerAPI = new IntersectionObserver(callback, options)
+        observerAPI.observe(episodeCardRef?.current);
+        return () => {
+            if (episodeCardRef?.current) {
+                return observerAPI.unobserve(episodeCardRef?.current)
+            }
+        }
+    }, [episodeCardRef])
+
     return (
-        <div data-component='episode-card-component' onClick={() => { alert('Episode click') }}>
+        <div ref={episodeCardRef} data-component='episode-card-component'
+            style={{
+                opacity: `${selectedEpisode?.mal_id === props?.mal_id ? '0.7' : ''}`,
+                border: `${selectedEpisode?.mal_id === props?.mal_id ? '1px solid #ff004c' : ''}`
+            }}
+            onClick={() => setSelectedEpisode(props)} >
             <div className='episode-card-left-container'>
-                <img className='episode-card-image' src={episodeImg || matchedEpisode?.images?.jpg?.image_url || smallFallbackImage} alt={title} />
-                <label className='episode-no-label'>{episodeNo}</label>
+                <img className='episode-card-image' src={props?.images?.jpg?.image_url || smallFallbackImage} alt={props?.title} />
+                <label className='episode-no-label'>{apiCallRateRef.current}</label>
             </div>
             <div className='episode-card-right-container'>
-                <label className='episode-card-title'>{title}</label>
+                <label className='episode-card-title'>{props?.title}</label>
                 <p className='episode-card-description'>
-                    {/* {synopsis?.synopsis || "Loading synopsis..."} */}
-                    {"Loading ...."}
+                    {!synopsis && <>
+                        <span className='episode-card-loading-labels'></span>
+                        <span className='episode-card-loading-labels'></span>
+                    </>}
+                    {synopsis?.synopsis}
                 </p>
             </div>
         </div>

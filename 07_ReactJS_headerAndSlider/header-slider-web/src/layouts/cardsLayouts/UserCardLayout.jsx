@@ -8,7 +8,7 @@ const UserCardLayout = () => {
     const [data, setData] = useState(userData)
     const handleUpdateUser = (id, updatedUser, isDelete = false) => {
         const notify = (message, isVisible, delay = 3000) => {
-            console.log("notify is running", message)
+            // console.log("notify is running", message)
             return <CustomToast message={message} isVisible={isVisible} delay={delay} />
         }
         setData((prev) =>

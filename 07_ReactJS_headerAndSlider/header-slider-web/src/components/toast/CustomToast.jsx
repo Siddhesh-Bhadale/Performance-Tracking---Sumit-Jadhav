@@ -3,9 +3,7 @@ import '../../scss/components/customtoast.scss'
 import crossIcon from '../../assets/icons/close.svg'
 
 const CustomToast = ({ message, isVisible, delay }) => {
-    console.log("prop Data:--->", isVisible)
     const [isToastVisible, setIsToastVisible] = useState(isVisible)
-    console.log("isToastVisible", isToastVisible)
     const handleClose = () => {
         setIsToastVisible(false)
     }

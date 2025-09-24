@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import AnimeCardLoading from '../../loadingComponents/AnimeCardLoading';
 import DropDownComponent from '../../components/drop-down/DropDownComponent';
 import useDebounce from '../../hooks/debounce/useDebounce';
+import { saveRecentlyVisitedAnime } from '../../utils/utils';
 
 const AnimeListLayout = ({ searchValue }) => {
     const [data, setData] = useState();
@@ -27,6 +28,11 @@ const AnimeListLayout = ({ searchValue }) => {
                 setLoading(true)
                 const response = await fetch(`https://api.jikan.moe/v4/top/anime?page=${page}${topManga ? `&type=${topManga?.value || topManga}` : ""}${seasonNow ? `&filter=${seasonNow?.value || seasonNow}` : ""}${searchDebounce ? `&q=${searchDebounce}` : ""}`);
                 const result = await response.json()
+                if (response.status === 429) {
+                    setTimeout(() => {
+                        handleApiCall();
+                    }, 334)
+                }
                 setData(result?.data)
                 setTotalPages(result?.pagination?.last_visible_page)
             } catch (error) {
@@ -35,7 +41,8 @@ const AnimeListLayout = ({ searchValue }) => {
             } finally {
                 setLoading(false)
             }
-        }, 500)
+        },
+            500)
 
     }
 
@@ -54,7 +61,7 @@ const AnimeListLayout = ({ searchValue }) => {
 
     }, [page, topManga, seasonNow, searchDebounce])
     return (
-        <div ref={containerRef} data-component='anime-list-layout'>
+        <div ref={containerRef} data-component='anime-list-layout' style={{ cursor: `${loading ? 'wait' : 'pointer'}` }}>
             <section className='drop-down-contianer'>
 
                 <DropDownComponent
@@ -83,7 +90,7 @@ const AnimeListLayout = ({ searchValue }) => {
                             key={idx}
                             animeTitle={item?.title}
                             poster={item?.images?.jpg?.image_url}
-                            onClick={() => handleCardNavigation(item)}
+                            onClick={() => { handleCardNavigation(item); saveRecentlyVisitedAnime(item) }}
                             rating={item?.score}
                         />
                     ))

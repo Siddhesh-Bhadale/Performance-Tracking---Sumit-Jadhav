@@ -19,7 +19,6 @@ const AnimeCard = (props) => {
   }
 
   const ratingstars = genrateRatingStar(rating)
-  // console.log(ratingstars)
 
 
   return (

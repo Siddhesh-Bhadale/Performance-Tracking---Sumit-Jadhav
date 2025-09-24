@@ -86,11 +86,10 @@ export const getPaginationPages = (current, total, showPages) => {
 
 
 export function saveRecentlyVisitedAnime(item) {
-    let visited = JSON.parse(localStorage.getItem('recentlyVisited')) || [];
+    console.log("is running")
     console.log("Items:--->", item)
+    let visited = JSON.parse(localStorage.getItem('recentlyVisited')) || [];
     const exists = visited?.some((exitedItem) => exitedItem.mal_id === item.mal_id);
-
-
     if (!exists) {
         visited.push(item);
     } else {
@@ -98,12 +97,25 @@ export function saveRecentlyVisitedAnime(item) {
         visited = visited.filter((v) => v.mal_id !== item.mal_id);
         visited.push(item);
     }
-
-
     localStorage.setItem("recentlyVisited", JSON.stringify(visited));
 }
 
 
 export function getRecentlyViewed() {
     return JSON.parse(localStorage.getItem('recentlyVisited'))
+}
+
+//------------------- Merged two array of object for distinct data -----------------------------//
+export const getMergedData = (array1, array2) => {
+    const merged = []
+    array1.forEach((item, idx) => {
+        const index = array2.find((item1) => item?.mal_id === item1?.mal_id)
+        if (index) {
+            item.images = index.images
+            merged.push(item)
+        } else {
+            merged.push(item)
+        }
+    })
+    return merged
 }

@@ -7,8 +7,8 @@ import EpisodeLayout from '../../layouts/episodesLayout/EpisodeLayout'
 import ProducerLayouts from '../../layouts/producerLayout/ProducerLayouts'
 import StreamingLayout from '../../layouts/StreamingLayout/StreamingLayout'
 import { useEffect, useState } from 'react'
+import { saveRecentlyVisitedAnime } from '../../utils/utils'
 export const SectionTitles = ({ title }) => {
-
     return (
         <div className='section-title-container'>
             <label className='section-label'>{title}</label>
@@ -17,26 +17,20 @@ export const SectionTitles = ({ title }) => {
 }
 const AnimeDetailsPage = () => {
     const params = useParams();
-    // const locationState = useLocation()
     const [data, setData] = useState()
     const fetchData = async () => {
         try {
             const response = await fetch(`https://api.jikan.moe/v4/anime/${params?.id}/full`);
             const result = await response.json();
             setData(result?.data);
-
-
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
-
+    // console.log(data)
     useEffect(() => {
+        window.scrollTo(0, 0)
         fetchData();
-
-
-
-
     }, []);
 
 

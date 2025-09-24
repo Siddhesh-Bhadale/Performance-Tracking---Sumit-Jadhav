@@ -1,19 +1,23 @@
 import React from 'react';
 import '../../scss/layouts/recentlyviewedanimelayout.scss'
 import AnimeCard from '../../components/cards/animeCard/AnimeCard';
+import { getRecentlyViewed } from '../../utils/utils';
+import { useNavigate } from 'react-router-dom';
 
 const RecentlyViewedAnime = () => {
-    let items = Array.from(Array(5), (item, idx) => idx + 1);
+    const visited = getRecentlyViewed();
+    const navigate = useNavigate();
+
 
     return (
         <div data-component='recentlyviewed-anime-layout'>
-            {items?.map((items, idx) => (
+            {visited?.reverse().map((item, idx) => (
                 <AnimeCard
                     key={idx}
-                    animeTitle={"One piece"}
-                    poster={"https://onlineframing.in/cdn/shop/files/91Zsk83ljAS._SY879.jpg?v=1707484146"}
-                    rating={4.5}
-                    onClick={() => { }}
+                    animeTitle={item?.title}
+                    poster={item?.images?.jpg?.image_url}
+                    // onClick={}
+                    rating={item?.score}
                 />
             ))}
         </div>

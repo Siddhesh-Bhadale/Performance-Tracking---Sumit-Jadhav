@@ -60,6 +60,15 @@
             color: rgb(200, 200, 200);
             @include ellipseText(3);
             margin-bottom: 0.5rem;
+
+            .episode-card-loading-labels {
+                width: 80%;
+                height: 12px;
+                display: flex;
+                background-color: gray;
+                border-radius: 12px;
+                margin-bottom: 12px;
+            }
         }
     }
 }

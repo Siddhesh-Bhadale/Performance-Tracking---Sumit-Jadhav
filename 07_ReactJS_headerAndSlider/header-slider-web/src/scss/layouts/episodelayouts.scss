@@ -1,13 +1,15 @@
 @use '../abstracts' as *;
 
 [data-components='episode-layout'] {
-    @include display-center(row);
+    // @include display-center(row);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     height: 60vh;
     padding: 1rem;
     gap: 1rem;
 
     .episode-right-container {
-        width: 70%;
+        width: 100%;
         height: 100%;
         flex-wrap: wrap;
         background-color: #151f2e;
