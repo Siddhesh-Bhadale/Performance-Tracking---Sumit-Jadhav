@@ -3,6 +3,7 @@ import HeaderComponent from '../components/header/HeaderComponent';
 import SliderComponent from '../components/slider/SliderComponent';
 import '../scss/pages/homePage.scss'
 import AnimeListLayout from '../layouts/animeList/AnimeListLayout';
+import Rating from '../components/rating/Rating';
 
 
 
@@ -18,6 +19,7 @@ const HomePage = () => {
             <section className='homepage-slider-container'>
                 <SliderComponent />
             </section>
+            {/* <Rating rating={4.5} /> */}
             <section>
                 <AnimeListLayout searchValue={searchValue} />
             </section>

@@ -1,0 +1,35 @@
+[data-component='animedetails-loading-compoenent'] {
+    padding: 1rem;
+
+    .banner-loader {
+        width: 100%;
+        height: 50vh;
+        background: #f0f0f075;
+        background: linear-gradient(45deg, rgba(240, 240, 240, 0.494) 0%, rgba(112, 112, 112, 0.591) 50%);
+        margin-bottom: 1rem;
+        border-radius: 1rem;
+    }
+
+    .banner-details {
+        width: 100%;
+        height: 50vh;
+        display: flex;
+        gap: 2rem;
+
+        .left-container {
+            border-radius: 1rem;
+            width: 100%;
+            height: 100%;
+            background: #f0f0f075;
+            background: linear-gradient(45deg, rgba(240, 240, 240, 0.494) 0%, rgba(112, 112, 112, 0.591) 50%);
+        }
+
+        .right-container {
+            border-radius: 1rem;
+            width: 100%;
+            height: 100%;
+            background: #f0f0f075;
+            background: linear-gradient(45deg, rgba(240, 240, 240, 0.494) 0%, rgba(112, 112, 112, 0.591) 50%);
+        }
+    }
+}

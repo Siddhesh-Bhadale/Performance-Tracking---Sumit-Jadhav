@@ -2,11 +2,15 @@ import React from 'react';
 import '../../scss/layouts/recentlyviewedanimelayout.scss'
 import AnimeCard from '../../components/cards/animeCard/AnimeCard';
 import { getRecentlyViewed } from '../../utils/utils';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const RecentlyViewedAnime = () => {
+const RecentlyViewedAnime = ({ data }) => {
     const visited = getRecentlyViewed();
     const navigate = useNavigate();
+    const handleNavigation = (item) => {
+        navigate(`/anime-details/${item?.mal_id}`);
+        // window.location.reload();
+    }
 
 
     return (
@@ -16,7 +20,7 @@ const RecentlyViewedAnime = () => {
                     key={idx}
                     animeTitle={item?.title}
                     poster={item?.images?.jpg?.image_url}
-                    // onClick={}
+                    onClick={() => handleNavigation(item)}
                     rating={item?.score}
                 />
             ))}

@@ -3,6 +3,8 @@
 import React from 'react'
 import '../../../scss/components/animecard.scss'
 import watchNow from '../../../assets/icons/watchnow.svg'
+import { smallFallbackImage } from '../../../utils/StaticData';
+import Rating from '../../rating/Rating';
 
 const AnimeCard = (props) => {
   const { animeTitle, poster, rating, onClick } = props;
@@ -29,16 +31,16 @@ const AnimeCard = (props) => {
           Watch Now
         </label>
       </div>
-      <img src={poster} className='anime-card-poster' />
+      <img src={poster || smallFallbackImage} className='anime-card-poster' />
       <div className='anime-card-stars-container'>
         <label className='anime-card-title'>{animeTitle}</label>
-        <label className='anime-card-rating-star'>
-          {/* {ratingstars?.map((item, idx) => {
+        {/* <label className='anime-card-rating-star'> */}
+        {/* {ratingstars?.map((item, idx) => {
             return
           })} */}
-          ⭐⭐⭐⭐⭐ 
-          {/* ☆☆☆☆☆ */}
-        </label>
+        <Rating rating={rating} />
+        {/* ☆☆☆☆☆ */}
+        {/* </label> */}
       </div>
     </div>
   )

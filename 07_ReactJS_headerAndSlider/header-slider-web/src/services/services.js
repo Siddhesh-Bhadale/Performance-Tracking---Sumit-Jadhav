@@ -1,5 +1,15 @@
 import api from "./api"
 
+
+export const getFullAnimeDetails = async (id) => {
+    try {
+        const response = await api(`/anime/${id}/full`);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+
 export const getAllEpisodes = async (id) => {
     try {
         const response = await api(`/anime/${id}/episodes`)

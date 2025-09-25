@@ -3,7 +3,6 @@ import '../../scss/layouts/producerlayouts.scss'
 import { SectionTitles } from '../../pages/animeDetails/AnimeDetailsPage';
 
 const ProducerLayouts = (data) => {
-
     return (
         <div data-component='producer-list-layout'>
             <SectionTitles title={'Producers'} />

@@ -16,7 +16,6 @@ const AnimeCardLoading = () => {
     return (
         <div data-component='anime-card-loading-component'>
             {LoadingArray?.map((item, idx) => (<AnimeLoadingCard key={idx} />))}
-
         </div>
     )
 }

@@ -1,0 +1,13 @@
+@use '../abstracts' as *;
+
+[data-components='star-rating-components'] {
+    @include display-center(row);
+    justify-content: flex-start;
+    gap: 0.2rem;
+
+    .rating-star-img {
+        height: 24px;
+        width: 24px;
+        object-fit: fill;
+    }
+}

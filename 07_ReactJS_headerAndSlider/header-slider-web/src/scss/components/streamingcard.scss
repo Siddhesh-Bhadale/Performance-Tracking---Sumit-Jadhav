@@ -18,8 +18,9 @@
         @include display-center(row);
 
         .streamplatform-img {
-            height: 50%;
-            width: 50%;
+            height: 80%;
+            width: 80%;
+            border-radius: 50%;
             object-fit: contain;
         }
     }

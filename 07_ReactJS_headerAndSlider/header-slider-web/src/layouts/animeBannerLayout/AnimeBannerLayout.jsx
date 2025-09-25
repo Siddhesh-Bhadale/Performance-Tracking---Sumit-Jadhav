@@ -1,6 +1,7 @@
 import "../../scss/layouts/animebannerlayout.scss";
 import { useParams } from 'react-router-dom';
 import { fallbackImage } from '../../utils/StaticData';
+import { handleImageError } from "../../utils/utils";
 
 // DetailItem component to render individual label/value pairs
 const DetailItem = ({ label, value, isGenres = false }) => {
@@ -29,31 +30,12 @@ const DetailItem = ({ label, value, isGenres = false }) => {
 // AnimeBannerLayout component
 const AnimeBannerLayout = (props) => {
     const { data } = props;
-    const param = useParams()
-    // const [animeInfo, setAnimeInfo] = useState(data);
-
-    // Fetch API data
-    // const fetchData = async () => {
-    //     try {
-    //         const response = await fetch(`https://api.jikan.moe/v4/anime/${param?.id}/full`);
-    //         const result = await response.json();
-    //         setAnimeInfo(result?.data);
-    //         console.log("full api--->", result?.data)
-    //     } catch (error) {
-    //         console.error("Error fetching data:", error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     if (!animeInfo) {
-    //         fetchData();
-    //     }
-    // }, [animeInfo]);
     return (
         <div data-component='anime-banner-component'>
             <img
                 src={data?.trailer?.images?.maximum_image_url || fallbackImage}
                 alt="Background"
+                onError={(e) => handleImageError(e)}
                 className='banner-background-img'
             />
 

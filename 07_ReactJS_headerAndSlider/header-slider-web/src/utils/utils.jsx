@@ -86,15 +86,9 @@ export const getPaginationPages = (current, total, showPages) => {
 
 
 export function saveRecentlyVisitedAnime(item) {
-    console.log("is running")
-    console.log("Items:--->", item)
     let visited = JSON.parse(localStorage.getItem('recentlyVisited')) || [];
     const exists = visited?.some((exitedItem) => exitedItem.mal_id === item.mal_id);
     if (!exists) {
-        visited.push(item);
-    } else {
-        // remove old & push latest at the end
-        visited = visited.filter((v) => v.mal_id !== item.mal_id);
         visited.push(item);
     }
     localStorage.setItem("recentlyVisited", JSON.stringify(visited));
@@ -118,4 +112,15 @@ export const getMergedData = (array1, array2) => {
         }
     })
     return merged
+}
+
+//------- stored Home page previous data in session ---------------//
+export const saveHomePageData = (item) => {
+    console.log(item)
+    // let previousData = JSON.parse(sessionStorage.getItem('homePagePreviousData'));
+    sessionStorage.setItem('homePagePreviousData', JSON.stringify(item))
+}
+
+export const getHomePageSavedData = () => {
+    return JSON.parse(sessionStorage.getItem('homePagePreviousData')) || {}
 }

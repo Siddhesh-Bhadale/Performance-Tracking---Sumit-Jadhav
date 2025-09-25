@@ -13,10 +13,11 @@ const AnimeListLayout = ({ searchValue }) => {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState()
     const [apiError, setError] = useState(false);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [topManga, setTopManga] = useState();
     const [seasonNow, setSeasoNow] = useState();
     const searchDebounce = useDebounce(searchValue)
+    const [isValueInitaliz, setIsValueInitaliz] = useState();
 
     const navigate = useNavigate()
     const containerRef = useRef();
@@ -55,10 +56,14 @@ const AnimeListLayout = ({ searchValue }) => {
     const handleCardNavigation = (item) => {
         navigate(`/anime-details/${item.mal_id}`, { state: item });
     }
+
+    useEffect(() => {
+
+    }, [])
+
     useEffect(() => {
         handleApiCall()
-        handleScrollToTop()
-
+        handleScrollToTop();
     }, [page, topManga, seasonNow, searchDebounce])
     return (
         <div ref={containerRef} data-component='anime-list-layout' style={{ cursor: `${loading ? 'wait' : 'pointer'}` }}>
@@ -76,7 +81,6 @@ const AnimeListLayout = ({ searchValue }) => {
                     options={["airing", "upcoming", "bypopularity", "favorite"]}
                     deafaultValue={seasonNow}
                     result={setSeasoNow}
-                // isMultiSelect={true}
                 />
             </section>
 
@@ -99,7 +103,7 @@ const AnimeListLayout = ({ searchValue }) => {
 
             </div>
 
-            {apiError === true ? (
+            {apiError ? (
                 <></>
             ) : (
                 <div className='pagination-cotainer'>

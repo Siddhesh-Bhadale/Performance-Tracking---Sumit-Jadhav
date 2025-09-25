@@ -1,6 +1,9 @@
 @use '../abstracts' as *;
 
 [ data-component='anime-card-component'] {
+    @include display-center(column);
+    align-items: flex-start;
+    justify-content: flex-start;
     position: relative;
     width: 270px;
     height: 400px;
@@ -10,6 +13,7 @@
     border: 1px solid rgba(62, 62, 62, 0.451);
     margin-bottom: 2rem;
     background-color: #1f1f1f;
+    flex-shrink: 0;
 
     .anime-card-poster {
         width: 100%;

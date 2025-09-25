@@ -12,6 +12,7 @@ const EpisodeLayout = () => {
     const [videoData, setVideoData] = useState([]);
     const [fullEpisode, setFullEpisode] = useState([]);
     const [selectedEpisode, setSelectedEpisode] = useState();
+    const [isApiCalled, setIsAPICalled] = useState(false)
 
     const fetchEpisodedata = async () => {
         try {
@@ -49,14 +50,16 @@ const EpisodeLayout = () => {
             <div className='episode-left-container'>
                 <img className='episode-background-img' src={selectedEpisode?.images?.jpg?.image_url || fallbackImage} />
                 <label className='watch-now-label'>Watch Now</label>
-                <label className='epsiode-anime-title-label'>{selectedEpisode?.title}</label>
+                {!fullEpisode || fullEpisode?.length === 0 ? (<></>) : (<><label className='epsiode-anime-title-label'>{selectedEpisode?.title}</label></>)}
             </div>
             <div className='episode-right-container'>
-                {!fullEpisode || fullEpisode?.length === 0 ? (<label> No episode Data </label>) : (<>
+                {!fullEpisode || fullEpisode?.length === 0 ? (<label className='No-episode-data-label'> No episode Data </label>) : (<>
                     {fullEpisode?.map((item, idx) => (
                         <EpisodeCard
                             key={idx}
                             {...item}
+                            isApiCalled={isApiCalled}
+                            setIsAPICalled={setIsAPICalled}
                             selectedEpisode={selectedEpisode}
                             setSelectedEpisode={setSelectedEpisode}
                         />

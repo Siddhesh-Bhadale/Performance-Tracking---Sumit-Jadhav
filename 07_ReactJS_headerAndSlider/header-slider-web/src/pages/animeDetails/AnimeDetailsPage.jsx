@@ -7,7 +7,9 @@ import EpisodeLayout from '../../layouts/episodesLayout/EpisodeLayout'
 import ProducerLayouts from '../../layouts/producerLayout/ProducerLayouts'
 import StreamingLayout from '../../layouts/StreamingLayout/StreamingLayout'
 import { useEffect, useState } from 'react'
-import { saveRecentlyVisitedAnime } from '../../utils/utils'
+import { getFullAnimeDetails } from '../../services/services'
+import AnimeDetailsLoadingPage from '../../loadingComponents/AnimeDetailsLoadingPage';
+
 export const SectionTitles = ({ title }) => {
     return (
         <div className='section-title-container'>
@@ -18,34 +20,42 @@ export const SectionTitles = ({ title }) => {
 const AnimeDetailsPage = () => {
     const params = useParams();
     const [data, setData] = useState()
-    const fetchData = async () => {
-        try {
-            const response = await fetch(`https://api.jikan.moe/v4/anime/${params?.id}/full`);
-            const result = await response.json();
-            setData(result?.data);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
-    // console.log(data)
+    const [loading, setIsLoading] = useState(true);
+
+    const fetchFullAnimeData = async () => {
+
+        setTimeout(async () => {
+            try {
+                setIsLoading(true)
+                const animeData = await getFullAnimeDetails(params?.id)
+                setData(animeData?.data)
+            } catch (error) {
+                console.log("Error while fetching a Full Anime Data", error)
+            } finally {
+                setIsLoading(false)
+            }
+        }, 400);
+
+    }
     useEffect(() => {
         window.scrollTo(0, 0)
-        fetchData();
+        fetchFullAnimeData();
     }, []);
-
-
     return (
         <div data-component='anime-details-page'>
             <HeaderComponent />
-            <AnimeBannerLayout data={data} />
-            <SectionTitles title={'Episodes'} />
-            < EpisodeLayout backgroundImg={data?.trailer?.images?.maximum_image_url} title={data?.title} />
-            <div className='stream-producer-container'>
-                <StreamingLayout data={data?.streaming} />
-                <ProducerLayouts data={data} />
-            </div>
-            <SectionTitles title={'Recently Viewed'} />
-            <RecentlyViewedAnime />
+            {loading ? (<AnimeDetailsLoadingPage />) : (<>
+                <AnimeBannerLayout data={data} />
+                <SectionTitles title={'Episodes'} />
+                < EpisodeLayout backgroundImg={data?.trailer?.images?.maximum_image_url} title={data?.title} />
+                <div className='stream-producer-container'>
+                    <StreamingLayout data={data?.streaming} />
+                    <ProducerLayouts data={data} />
+                </div>
+                <SectionTitles title={'Recently Viewed'} />
+                <RecentlyViewedAnime data={data} />
+            </>)}
+
         </div>
     )
 }
