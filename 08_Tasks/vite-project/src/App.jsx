@@ -1,69 +1,45 @@
-import React, { useState } from 'react';
-import { folderStructure } from './utils/staticData/StaticData';
-import fileImg from './assets/icons/file.svg';
-import folder from './assets/icons/folder.svg'
-import openArrow from './assets/icons/right.svg'
+import { useEffect, useState } from 'react';
 import './App.css'
+import FolderStructure from './components/folderStructure/FolderStructure'
+import VirtualisedList from './components/virtualisedList/VirtualisedList'
+import { folderList, months } from './utils/staticData/StaticData'
+import { getPreviousMonths } from './utils/utils';
+import GridComponent from './components/gridComponent/GridComponent';
 
-const FileExplorer = ({ nodes }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  // const [openFolder, setOpenFolder] = useState(nodes[0])
-  const handleOnclick = (e, item) => {
-    // console.log(openFolder)
-    // setOpenFolder(item)
-    // console.log("----------", item, "-------")
-    // console.log("fnn condition", openFolder.nodes?.length == item?.nodes?.length && !isOpen)
-    // setIsOpen(openFolder.nodes?.length == item?.nodes?.length ? !isOpen : false)
-    // setIsOpen((prev) => {
-    //   // console.log(prev, item.name)
-    //   return !isOpen
-    // })
-    // e.stopPropagation()
-    setIsOpen(!isOpen)
+function App() {
+  // index of an elemnt 
+  const currentMonth = `Dec`;
 
+  const index = months.indexOf(currentMonth)
+  // const currentMonth = new Date().getMonth();
 
-  }
+  const PreviousMonths = getPreviousMonths(index);
+  const [matrixInput, setMatrixInput] = useState(2)
+
   return (
-    <div className='fileExplorer-container' >
-      {nodes.map((item, index) => {
-        const type = item.hasOwnProperty("nodes")
-        return (<div key={index} className='fileExplore-item-container' >
-          <div
-            className={`item-container ${type ? "folder_contianer" : ""}`}
-            onClick={(e) => { (type && item?.nodes?.length > 0) && handleOnclick(item) }}>
-            {(type && item?.nodes?.length > 0) &&
-              <img src={openArrow}
-                className={`down_img ${isOpen ? "rightArrow" : ""}`} />}
-            <img className='folder_img' src={type ? folder : fileImg} />
-            <label className='folder_name'>{item?.name}</label>
-          </div>
+    <div className='Parent_container'>
+      <h2> Custom Grid Component </h2>
+      {/* <div className='left_container'>
+        <strong className='file_label'>File - Explorer</strong>
+        <FolderStructure list={folderList} />
+      </div> */}
+      {/* <div style={{ width: '100%' }}>
+        <span style={{ padding: '1rem' }}>{`current month:-`}{!currentMonth ? "please ensure ur month is valid" : months[index]}</span>
+        {PreviousMonths?.map((item, idx) => (<li key={idx}>{item}</li>))}
 
-          {isOpen && item?.nodes && item?.nodes?.length > 0 && (
-            <FileExplorer nodes={item.nodes} />
-          )}
-        </div>)
-      }
-      )}
+      </div> */}
+      <div style={{ height: '100%' }}>
+        <div className='app_grid_parent'>
+          <label className='grid_title'>Enter the active Cam Number :-</label>
+          <input className="app_grid_input" placeholder='Enter only positive no' type='number' value={matrixInput} onChange={(e) => setMatrixInput(e.target.value)} />
+        </div>
+        <GridComponent input={matrixInput} />
+      </div>
+
     </div>
-  );
-};
+  )
+}
 
-
-const App = () => {
-  return (
-    <div className='parent-container' >
-      <h1>File Explorer</h1>
-      <FileExplorer nodes={folderStructure} />
-    </div>
-  );
-};
-
-
-export default App;
-
-
-
-
-
+export default App
 
 
